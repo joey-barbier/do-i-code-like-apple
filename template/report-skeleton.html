@@ -35,7 +35,13 @@
 <!-- IF SCAN: graded scope. Remove the section otherwise. -->
 <section>
   <div class="perimetre">📍 <b><!-- "Graded scope:", localized --></b> <!-- e.g. "Features/Checkout — 34 files;
-  legacy (Legacy/) analyzed for progress only; excluded: Vendor/" --></div>
+  legacy (Legacy/) analyzed for progress only; excluded: Vendor/" -->
+  <!-- MANDATORY when the scanned code predates current APIs/recommendations
+       (old minimum deployment target, code written before an API existed):
+       append here, localized, the sentence
+       "older code reviewed against today's recommendations — expected drift,
+       not a fault". This mention must NEVER be dropped: it is what keeps the
+       report fair to code written in another era. --></div>
 </section>
 
 <section>
