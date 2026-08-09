@@ -37,10 +37,14 @@
     "best-practices",
     "i18n"
   ],
-  "author": "Orka",
+  "author": "Orka (https://libtracker.io)",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/horka-tv/do-i-code-like-apple.git"
+    "url": "git+https://github.com/joey-barbier/do-i-code-like-apple.git"
+  },
+  "homepage": "https://github.com/joey-barbier/do-i-code-like-apple#readme",
+  "bugs": {
+    "url": "https://github.com/joey-barbier/do-i-code-like-apple/issues"
   }
 }
