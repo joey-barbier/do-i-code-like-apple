@@ -156,16 +156,17 @@ pre code { background: none; padding: 0; }
 <header>
   <span class="eyebrow">do-i-code-like-apple · sample · fake data</span>
   <h1>Do I code like Apple?</h1>
-  <p class="sub"><strong>One-line verdict: you know the rules better than your code applies them — three 5-minute fixes close most of the gap.</strong>
-  Declared level: seasoned · mode: quiz + scan. Sample report generated with fake data for the demo.</p>
-  <div class="score-hero"><b>68/100</b><span>overall score</span></div>
+  <p class="sub"><strong>One-line verdict: you know the rules better than your code applies them — three 5-minute fixes close most of the gap, and one finding is a live bug worth fixing today.</strong>
+  Declared level: seasoned · mode: quiz (14 questions) + scan across the 16 axes. Sample report generated with fake data for the demo.</p>
+  <div class="score-hero"><b>71/100</b><span>overall score</span></div>
 </header>
 
 <section>
   <div class="stats">
-    <div class="stat"><b>15</b><span>questions answered</span></div>
+    <div class="stat"><b>14</b><span>questions answered</span></div>
     <div class="stat"><b>34</b><span>files scanned (focus)</span></div>
-    <div class="stat"><b>23</b><span>findings</span></div>
+    <div class="stat"><b>31</b><span>findings</span></div>
+    <div class="stat"><b>9</b><span>guarded hits (good patterns)</span></div>
     <div class="stat"><b>3</b><span>divergences</span></div>
     <div class="stat"><b>2</b><span>proven wins</span></div>
   </div>
@@ -173,13 +174,14 @@ pre code { background: none; padding: 0; }
 
 <section>
   <div class="perimetre">📍 <b>Graded scope:</b> <code>Features/Checkout</code> — 34 Swift files (your declared current level);
-  <code>Legacy/</code> (61 files) analyzed for progress only; excluded: <code>Vendor/</code>, <code>Pods/</code>.</div>
+  <code>Legacy/</code> (61 files) analyzed for progress only; excluded: <code>Vendor/</code>, <code>Pods/</code>.
+  Parts of <code>Legacy/</code> predate today's APIs — older code was reviewed against today's recommendations: expected drift, not a fault.</div>
 </section>
 
 <section>
-  <h2>The 10 axes — what you answer 🆚 what your code shows</h2>
+  <h2>The 16 axes — what you answer 🆚 what your code shows</h2>
   <p class="h2-note">The house rating goes from 1 to 5 octopuses. "Declared" = your quiz answers;
-  "observed" = your code (focus scope only).</p>
+  "observed" = your code (focus scope only). Axes with nothing to grade are excluded from the mean.</p>
   <div class="card tablewrap">
     <table>
       <tr><th>Axis</th><th>Declared</th><th>Observed</th><th>Verdict</th><th>In one line</th></tr>
@@ -188,7 +190,7 @@ pre code { background: none; padding: 0; }
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙🐙</span></td>
         <td class="grade"><span class="poulpes">🐙🐙<span class="off">🐙🐙🐙</span></span></td>
         <td><span class="chip c-warn">DIVERGENCE</span></td>
-        <td>You picked nested View structs in the quiz; 11 of 14 screens use computed vars.</td>
+        <td>You picked nested View structs in the quiz; 11 of 14 screens use computed-var sections.</td>
       </tr>
       <tr>
         <td>2 · ForEach identity</td>
@@ -205,11 +207,11 @@ pre code { background: none; padding: 0; }
         <td>The dashboard sort lives in the body — hot path, recomputed every render.</td>
       </tr>
       <tr>
-        <td>4 · @Observable</td>
+        <td>4 · @Observable granularity</td>
         <td class="grade"><span class="poulpes">🐙🐙🐙<span class="off">🐙🐙</span></span></td>
         <td class="grade"><span class="poulpes">🐙🐙🐙<span class="off">🐙🐙</span></span></td>
         <td><span class="chip c-ok">ALIGNED</span></td>
-        <td>Two non-Equatable state structs — literally one word to add.</td>
+        <td>Two non-Equatable state structs; one row family reaches back by index.</td>
       </tr>
       <tr>
         <td>5 · Bindings</td>
@@ -223,14 +225,14 @@ pre code { background: none; padding: 0; }
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙<span class="off">🐙</span></span></td>
         <td class="grade"><span class="poulpes">🐙🐙<span class="off">🐙🐙🐙</span></span></td>
         <td><span class="chip c-warn">DIVERGENCE</span></td>
-        <td>Strings centralized (nice!) but typed <code>String</code> → never extracted.</td>
+        <td>Strings centralized (nice!) but typed <code>String</code> → never extracted; 2 pinned locales.</td>
       </tr>
       <tr>
         <td>7 · Soft-deprecated APIs</td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙🐙</span></td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙🐙</span></td>
         <td><span class="chip c-ok">ALIGNED</span></td>
-        <td>Zero deprecated API in the focus. Clean.</td>
+        <td>Zero deprecated API across the 16 families in the focus. Clean.</td>
       </tr>
       <tr>
         <td>8 · Testing</td>
@@ -253,6 +255,48 @@ pre code { background: none; padding: 0; }
         <td><span class="chip c-ok">ALIGNED</span></td>
         <td>No <code>.if</code> helper — your views' identity is stable.</td>
       </tr>
+      <tr>
+        <td>11 · View init hygiene</td>
+        <td class="grade"><span class="poulpes">🐙🐙🐙<span class="off">🐙🐙</span></span></td>
+        <td class="grade"><span class="poulpes">🐙🐙🐙🐙<span class="off">🐙</span></span></td>
+        <td><span class="chip c-ok">ALIGNED</span></td>
+        <td>One DateFormatter allocated in a row init; everything else is constant-time copies.</td>
+      </tr>
+      <tr>
+        <td>12 · List rows fast path</td>
+        <td class="grade"><span class="poulpes">🐙🐙<span class="off">🐙🐙🐙</span></span></td>
+        <td class="grade"><span class="poulpes">🐙🐙🐙<span class="off">🐙🐙</span></span></td>
+        <td><span class="chip c-warn">IMPROVABLE</span></td>
+        <td>Two bare-switch row bodies; the AnyView factory is legacy-only (progress ✓).</td>
+      </tr>
+      <tr>
+        <td>13 · Environment discipline</td>
+        <td class="grade"><span class="poulpes">🐙🐙<span class="off">🐙🐙🐙</span></span></td>
+        <td class="grade"><span class="poulpes">🐙🐙<span class="off">🐙🐙🐙</span></span></td>
+        <td><span class="chip c-ko">SERIOUS FINDING</span></td>
+        <td>A closure key and one <code>@Entry var theme = Theme()</code> unstable default.</td>
+      </tr>
+      <tr>
+        <td>14 · SDK 27 readiness</td>
+        <td class="grade"><span class="poulpes">🐙🐙🐙<span class="off">🐙🐙</span></span></td>
+        <td class="grade"><span class="poulpes">🐙🐙<span class="off">🐙🐙🐙</span></span></td>
+        <td><span class="chip c-ko">LIVE BUG</span></td>
+        <td>One <code>@State</code> assigned in init — renders the declaration value TODAY, silently.</td>
+      </tr>
+      <tr>
+        <td>15 · Structural Groups</td>
+        <td class="grade"><span class="poulpes">🐙🐙🐙🐙🐙</span></td>
+        <td class="grade"><span class="poulpes">🐙🐙🐙🐙<span class="off">🐙</span></span></td>
+        <td><span class="chip c-ok">ALIGNED</span></td>
+        <td>Three single-child Groups; your <code>Group {{ if/else }}</code> uses are the blessed shape.</td>
+      </tr>
+      <tr>
+        <td>16 · Animations</td>
+        <td class="grade"><span class="poulpes">🐙🐙🐙<span class="off">🐙🐙</span></span></td>
+        <td class="grade"><span class="poulpes off">🐙🐙🐙🐙🐙</span></td>
+        <td><span class="chip c-mut">NOT APPLICABLE</span></td>
+        <td>No animated custom shapes in the focus — excluded from the mean.</td>
+      </tr>
     </table>
   </div>
 </section>
@@ -264,21 +308,21 @@ pre code { background: none; padding: 0; }
   <div class="duel">
 
     <div class="duel-item">
+      <div class="duel-head"><h3>Axis 14 — SDK 27 readiness</h3><span class="chip c-ko">LIVE BUG</span></div>
+      <div class="duel-body">
+        <div class="duel-col"><span class="lbl lbl-you">What you answer</span>Q16: correct — you know a view init runs on every parent body pass.</div>
+        <div class="duel-col"><span class="lbl lbl-code">What your code shows</span><code>CounterBadge.swift:12</code>: <code>@State private var count = 0</code> assigned again in <code>init</code> — the body renders 0 today, silently, on current SDKs.</div>
+      </div>
+      <div class="duel-action"><b>Reconciliation:</b> drop the declaration initializer and assign only in init (<code>_count = State(initialValue:)</code>). This is not future-proofing — it is a correctness bug in shipping code, and the same shape stops compiling under SDK 27.</div>
+    </div>
+
+    <div class="duel-item">
       <div class="duel-head"><h3>Axis 1 — Invalidation boundaries</h3><span class="chip c-warn">DIVERGENCE</span></div>
       <div class="duel-body">
         <div class="duel-col"><span class="lbl lbl-you">What you answer</span>Q1: you picked nested View structs, with the right justification ("otherwise the whole screen re-evaluates").</div>
         <div class="duel-col"><span class="lbl lbl-code">What your code shows</span>11 of 14 screens use computed vars, e.g. <code>CheckoutSummary.swift:48</code>: <code>private var totalSection: some View</code> — inlined into the body, no boundary.</div>
       </div>
-      <div class="duel-action"><b>Reconciliation:</b> you already know why — only the move is missing. Extract the sections that read store state first (static leaves can wait). One section = one nested <code>struct … : View</code>, mechanical, risk-free.</div>
-    </div>
-
-    <div class="duel-item">
-      <div class="duel-head"><h3>Axis 6 — Localization</h3><span class="chip c-warn">DIVERGENCE</span></div>
-      <div class="duel-body">
-        <div class="duel-col"><span class="lbl lbl-you">What you answer</span>Q9: correct answer, you know the <code>Text(String)</code> overload trap.</div>
-        <div class="duel-col"><span class="lbl lbl-code">What your code shows</span><code>L10n.swift</code> centralizes 87 strings (excellent hygiene) — but typed <code>String</code>: nothing reaches the String Catalog. Plus 2 <code>Locale(identifier: "en_US")</code> in <code>PriceFormatter.swift:12</code>.</div>
-      </div>
-      <div class="duel-action"><b>Reconciliation:</b> retype <code>String</code> → <code>LocalizedStringResource</code> (identical rendering today, a catalog that fills itself for tomorrow), and let the locale come from the environment.</div>
+      <div class="duel-action"><b>Reconciliation:</b> you already know why — only the move is missing. Extract the sections that read store state first (static leaves can wait; the tiny-fragment helpers you have are the blessed exception and stayed unflagged).</div>
     </div>
 
     <div class="duel-item">
@@ -300,7 +344,7 @@ pre code { background: none; padding: 0; }
   <div class="progression">
     <ul>
       <li><code>id: \.self</code> — 12 occurrences in legacy, 0 new in your recent code (7 inherited ones being phased out) <span class="acquis">→ mastered ✓</span></li>
-      <li><code>NavigationView</code> — 9 occurrences in legacy, 0 in your recent code: you moved to <code>NavigationStack</code> <span class="acquis">→ mastered ✓</span></li>
+      <li><code>AnyView</code> row factories — 4 in legacy, 0 in your recent code: rows are concrete views now <span class="acquis">→ mastered ✓</span></li>
     </ul>
   </div>
 </section>
@@ -311,7 +355,21 @@ pre code { background: none; padding: 0; }
   <div class="fixes">
 
     <div class="fix-item">
-      <h3>1 · Move the sort out of the dashboard body <span class="chip c-ok">5 MIN</span></h3>
+      <h3>1 · Fix the @State-in-init live bug <span class="chip c-ko">LIVE BUG · 5 MIN</span></h3>
+      <div class="avant-apres">
+        <div><span class="lbl">Before</span><pre><code>@State private var count = 0
+init(start: Int) { count = start }
+// body renders 0 TODAY — silently</code></pre></div>
+        <div><span class="lbl">After</span><pre><code>@State private var count: Int
+init(start: Int) {
+  _count = State(initialValue: start)
+}</code></pre></div>
+      </div>
+      <a href="https://developer.apple.com/documentation/swiftui/state">→ State</a>
+    </div>
+
+    <div class="fix-item">
+      <h3>2 · Move the sort out of the dashboard body <span class="chip c-ok">5 MIN</span></h3>
       <div class="avant-apres">
         <div><span class="lbl">Before</span><pre><code>List(store.projects
   .sorted { $0.criticality > $1.criticality }) { … }</code></pre></div>
@@ -326,28 +384,15 @@ List(store.sorted) { … }</code></pre></div>
     </div>
 
     <div class="fix-item">
-      <h3>2 · <code>Equatable</code> on state structs <span class="chip c-ok">1 WORD</span></h3>
+      <h3>3 · Stabilize the @Entry default <span class="chip c-ok">5 MIN</span></h3>
       <div class="avant-apres">
-        <div><span class="lbl">Before</span><pre><code>struct CheckoutState {
-  var step = 0; var isPaying = false
-}</code></pre></div>
-        <div><span class="lbl">After</span><pre><code>struct CheckoutState: Equatable {
-  var step = 0; var isPaying = false
-}</code></pre></div>
+        <div><span class="lbl">Before</span><pre><code>@Entry var theme = Theme()
+// fresh instance per fallback read</code></pre></div>
+        <div><span class="lbl">After</span><pre><code>private static let defaultTheme = Theme()
+@Entry var theme = Self.defaultTheme
+// stable: same instance every read</code></pre></div>
       </div>
-      <a href="https://developer.apple.com/documentation/observation">→ Observation</a>
-    </div>
-
-    <div class="fix-item">
-      <h3>3 · Test fixtures via <code>#require</code> <span class="chip c-ok">5 MIN</span></h3>
-      <div class="avant-apres">
-        <div><span class="lbl">Before</span><pre><code>let item = catalog.first { $0.id == "core" }!
-// failure = the WHOLE run crashes</code></pre></div>
-        <div><span class="lbl">After</span><pre><code>let item = try #require(
-  catalog.first { $0.id == "core" })
-// failure = ONE red test, the run continues</code></pre></div>
-      </div>
-      <a href="https://developer.apple.com/documentation/testing">→ Swift Testing</a>
+      <a href="https://developer.apple.com/documentation/swiftui/entry()">→ Entry macro</a>
     </div>
 
   </div>

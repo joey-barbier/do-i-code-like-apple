@@ -30,3 +30,31 @@ final class DemoAntiPatternsTests: XCTestCase {
         XCTAssertFalse(data.isEmpty)
     }
 }
+
+// MARK: - Additional axis-8 triggers (v0.3.0 fixture extension)
+
+final class DemoAsyncTests: XCTestCase {
+
+    var sut: DemoStore!                              // Axis 8.2: implicitly-unwrapped stored fixture
+
+    override func setUp() {                          // Axis 8.1: setUp instead of init
+        continueAfterFailure = false                 // Axis 8.4: #require semantics required downstream
+        sut = DemoStore()
+    }
+
+    func testCallbackFires() {
+        // Axis 8.1: XCTestExpectation instead of confirmation()
+        let exp = expectation(description: "callback")
+        DispatchQueue.main.async { exp.fulfill() }
+        waitForExpectations(timeout: 1)
+    }
+
+    func testBlockingWait() {
+        // Axis 8.8: semaphore in a test — tests can be async/throws
+        let semaphore = DispatchSemaphore(value: 0)
+        DispatchQueue.global().async { semaphore.signal() }
+        semaphore.wait()
+        // Axis 8.10: commented-out assertion instead of withKnownIssue
+        // XCTAssertTrue(sut.state.isLoading)
+    }
+}
