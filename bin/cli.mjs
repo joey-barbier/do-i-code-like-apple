@@ -219,13 +219,13 @@ const t = STRINGS[uiLang];
 const title = TITLES[uiLang] ?? TITLES.en;
 
 const OCTOPUS = String.raw`
-        ,---.
-       ( o o )        do-i-code-like-apple v${VERSION}
-        \ = /         « ${title} »
-      .-'---'-.
-     / | | | | \      ${t.tagline}
-    (  | | | |  )     https://libtracker.io
-     '-'-'-'-'-'
+        .-""-.
+       ( o  o )       do-i-code-like-apple v${VERSION}
+      (   u    )      « ${title} »
+       ` + "`" + String.raw`-.__.-'
+      _/(_)(_)\_      ${t.tagline}
+     ( )( )( )( )     https://libtracker.io
+      ~  ~  ~  ~
 `;
 
 const HELP = `${OCTOPUS}
