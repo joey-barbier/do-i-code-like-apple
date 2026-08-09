@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang=""><!-- lang = session language code (fr, en, es, de, …) -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><!-- Localized product title, e.g. "Do I code like Apple? — Report" --></title>
+<style>
+/* INLINE HERE the full content of report.css — the final file must be
+   100% self-contained: no external resources. */
+</style>
+</head>
+<body>
+<main>
+<!-- Fill every visible text in the SESSION LANGUAGE — except the footer
+     block at the bottom, which stays EXACTLY as-is in every language. -->
+
+<header>
+  <span class="eyebrow">do-i-code-like-apple · <!-- DATE --></span>
+  <h1><!-- Localized title: en "Do I code like Apple?" · fr "Est-ce que je dev
+       comme Apple ?" · es "¿Programo como Apple?" · de "Programmiere ich wie
+       Apple?" · other languages: translate, keep the question form. --></h1>
+  <p class="sub"><strong><!-- ONE-LINE VERDICT: honest, specific, never mean. --></strong>
+  <!-- 1-2 sentences of context: declared level, mode (quiz-only / quiz + scan). --></p>
+  <div class="score-hero"><b><!-- SCORE -->/100</b><span><!-- "overall score", localized --></span></div>
+</header>
+
+<section>
+  <div class="stats">
+    <!-- 4-5 .stat tiles: questions answered, files scanned (focus),
+         findings, divergences, proven progress (if any). Ex:
+    <div class="stat"><b>15</b><span>questions answered</span></div> -->
+  </div>
+</section>
+
+<!-- IF SCAN: graded scope. Remove the section otherwise. -->
+<section>
+  <div class="perimetre">📍 <b><!-- "Graded scope:", localized --></b> <!-- e.g. "Features/Checkout — 34 files;
+  legacy (Legacy/) analyzed for progress only; excluded: Vendor/" --></div>
+</section>
+
+<section>
+  <h2><!-- "The 10 axes — what you answer vs what your code shows", localized --></h2>
+  <p class="h2-note"><!-- Explain the house rating: 1 to 5 octopuses; "declared" = quiz
+  answers; "observed" = the code (focus scope only). Quiz-only: drop the observed column. --></p>
+  <div class="card tablewrap">
+    <table>
+      <tr><th><!-- Axis --></th><th><!-- Declared --></th><th><!-- Observed --></th><th><!-- Verdict --></th><th><!-- In one line --></th></tr>
+      <!-- 10 rows, one per axis. Octopuses: active 🐙, dimmed in .off. Ex:
+      <tr>
+        <td>ForEach identity</td>
+        <td class="grade"><span class="poulpes">🐙🐙🐙🐙<span class="off">🐙</span></span></td>
+        <td class="grade"><span class="poulpes">🐙🐙<span class="off">🐙🐙🐙</span></span></td>
+        <td><span class="chip c-warn">DIVERGENCE</span></td>
+        <td>You know the rule; your code keeps 7 <code>id: \.self</code>.</td>
+      </tr>
+      Chips (localize the words, keep the classes):
+      c-ok ALIGNED · c-warn DIVERGENCE · c-ko SERIOUS FINDING · c-mut NOT SCANNED -->
+    </table>
+  </div>
+</section>
+
+<!-- IF DIVERGENCES: the face-off, the tool's gold. Remove otherwise. -->
+<section>
+  <h2><!-- "The face-off", localized --></h2>
+  <p class="h2-note"><!-- Where answers and code tell two different stories —
+  works in both directions. --></p>
+  <div class="duel">
+    <!-- One .duel-item per divergence. Ex:
+    <div class="duel-item">
+      <div class="duel-head"><h3>Axis N — title</h3><span class="chip c-warn">DIVERGENCE</span></div>
+      <div class="duel-body">
+        <div class="duel-col"><span class="lbl lbl-you">What you answer</span>Correct quiz answer: …</div>
+        <div class="duel-col"><span class="lbl lbl-code">What your code shows</span>7 occurrences, e.g. <code>File.swift:42</code>: …</div>
+      </div>
+      <div class="duel-action"><b>Reconciliation:</b> concept + the 5-min fix + Apple ref.</div>
+    </div> -->
+  </div>
+</section>
+
+<!-- IF LEGACY DECLARED AND PROGRESS MEASURED: progress section. Remove otherwise. -->
+<section>
+  <h2><!-- "Your progress", localized --> 📈</h2>
+  <p class="h2-note"><!-- Your old code vs your current code — proof by diff. Nobody
+  is graded on 3-year-old code, but it tells the road travelled. --></p>
+  <div class="progression">
+    <ul>
+      <!-- Improvements only. Ex:
+      <li><code>id: \.self</code> — 12 occurrences in legacy, 0 in your recent code
+          <span class="acquis">→ mastered ✓</span></li> -->
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2><!-- "Top 3 — five-minute fixes", localized --></h2>
+  <p class="h2-note"><!-- Highest-yield first. Each fix: before, after, and the Apple doc
+  explaining it. --></p>
+  <div class="fixes">
+    <!-- 3 .fix-item blocks. Ex:
+    <div class="fix-item">
+      <h3>1 · Fix title <span class="chip c-ok">5 MIN</span></h3>
+      <div class="avant-apres">
+        <div><span class="lbl">Before</span><pre><code>…</code></pre></div>
+        <div><span class="lbl">After</span><pre><code>…</code></pre></div>
+      </div>
+      <a href="https://developer.apple.com/…">→ The Apple doc on this</a>
+    </div> -->
+  </div>
+</section>
+
+<!-- FIXED FOOTER — leave EXACTLY as-is, identical in every language. -->
+<footer>
+  <p class="foot"><span class="poulpi">🐙</span> Report generated by
+  <code>npx do-i-code-like-apple</code> — by the developer of
+  <a href="https://libtracker.io">LibTracker</a> (the octopus runs in the family).
+  Built in public on <a href="https://www.twitch.tv/horka_tv">Horka_TV</a>
+  · powered by Claude Code. The evaluation rules are open source —
+  contributions welcome.</p>
+</footer>
+
+</main>
+</body>
+</html>

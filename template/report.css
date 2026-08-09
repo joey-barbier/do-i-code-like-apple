@@ -1,4 +1,4 @@
-/* dev-comme-apple — rapport néo-brutaliste. Créé par Orka. */
+/* do-i-code-like-apple — neo-brutalist report. Created by Orka. */
 :root {
   --bg: #FAF4F0;
   --card: #FFFFFF;
@@ -43,7 +43,7 @@ h2 { font-size: 22px; font-weight: 900; margin: 0 0 4px; letter-spacing: -0.01em
 
 section > .card { background: var(--card); border: var(--border); box-shadow: var(--shadow); border-radius: 4px; }
 
-/* score global */
+/* overall score */
 .score-hero {
   display: inline-flex; align-items: baseline; gap: 12px; margin-top: 16px;
   background: var(--accent); border: var(--border); box-shadow: var(--shadow);
@@ -73,11 +73,11 @@ section > .card { background: var(--card); border: var(--border); box-shadow: va
 .c-acc  { background: var(--accent); }
 .c-mut  { background: #E8E0DA; }
 
-/* score en poulpes — la note officielle de la maison (1 à 5 🐙) */
+/* octopus grades — the house rating (1 to 5 🐙) */
 .poulpes { font-size: 15px; letter-spacing: 2px; white-space: nowrap; }
 .poulpes .off { opacity: 0.18; filter: grayscale(1); }
 
-/* périmètre évalué */
+/* graded scope */
 .perimetre {
   background: var(--card); border: var(--border); box-shadow: var(--shadow-sm); border-radius: 4px;
   padding: 12px 16px; font-size: 13.5px;
@@ -101,7 +101,7 @@ pre {
 }
 pre code { background: none; padding: 0; }
 
-/* face-à-face « tu réponds vs ton code montre » */
+/* face-off "what you answer vs what your code shows" */
 .duel { display: flex; flex-direction: column; gap: 16px; }
 .duel-item { background: var(--card); border: var(--border); box-shadow: var(--shadow); border-radius: 4px; overflow: hidden; }
 .duel-head {
@@ -113,7 +113,7 @@ pre code { background: none; padding: 0; }
 .duel-col { padding: 12px 16px; font-size: 13.5px; }
 .duel-col + .duel-col { border-left: 1px solid #DDD3CC; }
 .duel-col .lbl { display: block; font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
-.lbl-toi { color: #7A4FD1; }
+.lbl-you { color: #7A4FD1; }
 .lbl-code { color: #C2367F; }
 .duel-action { padding: 10px 16px; font-size: 13px; border-top: 1px solid #DDD3CC; background: #FDFAF8; }
 .duel-action b { font-weight: 800; }
@@ -122,12 +122,12 @@ pre code { background: none; padding: 0; }
   .duel-col + .duel-col { border-left: none; border-top: 1px solid #DDD3CC; }
 }
 
-/* progression (legacy → récent) */
+/* progress (legacy → recent) */
 .progression { background: var(--card); border: var(--border); box-shadow: var(--shadow); border-radius: 4px; padding: 16px; }
 .progression ul { margin: 0; padding-left: 18px; font-size: 13.5px; display: flex; flex-direction: column; gap: 8px; }
 .progression .acquis { font-weight: 800; color: #2E7D32; white-space: nowrap; }
 
-/* fixes 5 minutes */
+/* 5-minute fixes */
 .fixes { display: flex; flex-direction: column; gap: 16px; }
 .fix-item { background: var(--card); border: var(--border); box-shadow: var(--shadow); border-radius: 4px; padding: 16px; }
 .fix-item h3 { margin: 0 0 6px; font-size: 15px; font-weight: 900; }
