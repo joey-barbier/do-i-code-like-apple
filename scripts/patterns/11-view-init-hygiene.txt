@@ -1,0 +1,8 @@
+init\([^)]*\)\s*\{[^}]*(load|fetch|request)
+JSONDecoder\(\)
+\.decode\(
+FileManager|contentsOfFile|Data\(contentsOf:
+DateFormatter\(\)
+NumberFormatter\(\)
+\.string\(from:
+Text\(\w+,\s*format:

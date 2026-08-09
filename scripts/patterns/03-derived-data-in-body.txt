@@ -1,0 +1,6 @@
+\.sorted\(
+\.sorted\s*\{
+\.filter\s*[({]
+Dictionary\(grouping:
+ForEach\([^)]*\.(sorted|filter|grouped|reduce)\b
+\.(first|filter|map|contains|count)\(where:

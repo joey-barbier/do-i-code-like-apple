@@ -1,0 +1,19 @@
+import XCTest
+:\s*XCTestCase
+\bXCTAssert[A-Za-z]*\(
+\bXCTUnwrap\(
+\bXCTFail\(
+XCTestExpectation|expectation\(description:|waitForExpectations|fulfillment\(of:
+override\s+func\s+(setUp|tearDown)
+func\s+test[A-Z_]
+XCTSkip|XCTExpectFailure|XCTAttachment
+continueAfterFailure
+var\s+\w+\s*:\s*\w+!
+try!\s
+\)!
+DispatchSemaphore|RunLoop\.current\.run
+Calendar\.current
+Date\(\)
+guard\s+let[^\n]*else\s*\{\s*Issue\.record
+^\s*//\s*(#expect|#require|XCTAssert)
+#_

@@ -1,0 +1,4 @@
+Binding\(get:
+Binding\($
+Binding<[^>]*>\(
+@Bindable

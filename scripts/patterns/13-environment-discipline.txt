@@ -1,0 +1,10 @@
+@Entry\s+var\s+\w+\s*:\s*\(.*\)\s*->
+@Entry\s+var\s+\w+\s*=\s*\w+\(
+@Entry\s+var\s+\w+\s*=\s*(Date|UUID)\(\)
+struct\s+\w+Key\s*:\s*EnvironmentKey
+static\s+var\s+defaultValue
+\.environment\(\\\.
+@Environment\(\\\.\w+\)
+onScrollGeometryChange|scrollPosition
+GeometryReader|onGeometryChange
+DragGesture\(\)\.onChanged|TimelineView|CADisplayLink|Timer\.publish

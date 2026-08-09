@@ -1,0 +1,10 @@
+id:\s*\\\.self
+ForEach\([^)]*\.indices
+ForEach\(0\s*\.\.<
+id:\s*\\\.offset
+ForEach\(\s*Array\(
+\.enumerated\(\)
+ForEach\([^)]*\.map\s*\{
+var\s+id\s*:\s*Self\s*\{
+List\([^)]*,\s*id:
+OutlineGroup\(

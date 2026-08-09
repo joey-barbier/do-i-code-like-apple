@@ -1,0 +1,6 @@
+struct\s+\w+\s*:\s*[^{]*\bShape\b
+animatableData
+@Animatable\b
+@AnimatableIgnored
+AnimatablePair<
+AnimatableValues<

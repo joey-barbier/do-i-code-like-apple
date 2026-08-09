@@ -1,0 +1,4 @@
+var body: some View \{\s*$
+AnyView\(
+->\s*AnyView
+-LogForEachSlowPath

@@ -1,0 +1,9 @@
+@Observable
+:\s*ObservableObject
+@Published
+@StateObject
+@ObservedObject
+@EnvironmentObject
+@State\s+var\s
+let\s+index\s*:\s*Int
+\.onChange\(of:

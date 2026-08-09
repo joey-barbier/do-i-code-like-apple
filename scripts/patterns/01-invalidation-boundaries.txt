@@ -1,0 +1,5 @@
+(private\s+)?var\s+\w+\s*:\s*some View
+func\s+\w+\([^)]*\)\s*->\s*some\s+View
+@ViewBuilder\s+(private\s+)?(func|var)
+private\s+var\s+(header|footer|details|metadata|content|toolbar|sections?)\s*:\s*some View
+struct\s+\w*Detail(View)?\s*:\s*View

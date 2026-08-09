@@ -1,0 +1,3 @@
+func\s+`if`
+\.if\(
+@ViewBuilder\s+func\s+(when|applyIf|conditional)
