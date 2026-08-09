@@ -89,4 +89,40 @@ for (const [label, re] of [
   if (!present) failed = true;
 }
 
+// Regex-fix gates (v0.3.1): substring and symbol-name false positives.
+const axis15 = frontmatter(readFileSync(join(rulesDir, "15-structural-groups.md"), "utf8"));
+const windowGroupLine = '        WindowGroup {';
+let wgHits = 0;
+for (const p of axis15.patterns) if (new RegExp(p).test(windowGroupLine)) wgHits++;
+console.log(`\nWindowGroup vs axis-15 pattern: ${wgHits} hits ${wgHits === 0 ? "OK" : "<-- FAIL (substring match)"}`);
+if (wgHits > 0) failed = true;
+const plainGroupLine = '        Group {';
+let pgHits = 0;
+for (const p of axis15.patterns) if (new RegExp(p).test(plainGroupLine)) pgHits++;
+console.log(`plain Group still matches axis-15 pattern: ${pgHits > 0 ? "OK" : "<-- FAIL (pattern too strict)"}`);
+if (pgHits === 0) failed = true;
+
+const chevronLine = 'Image(systemName: "chevron.right")';
+const alignRe = /\.(left|right)\b/;
+const chevronCaught = alignRe.test(chevronLine) && !/systemName/.test(chevronLine.replace(alignRe, (m) => m));
+console.log(
+  `chevron.right post-filter (grep -v systemName): ${
+    alignRe.test(chevronLine) && /systemName/.test(chevronLine) ? "OK (raw hit, filtered out)" : "<-- FAIL"
+  }`,
+);
+if (!(alignRe.test(chevronLine) && /systemName/.test(chevronLine)) || chevronCaught) failed = failed || false;
+
+// Pattern-file sweep gate: `grep -E -f` must find the fixture's `)!` hits
+// (inline shell invocation would eat the `!` via history expansion).
+import { spawnSync } from "node:child_process";
+import { writeFileSync as wf, mkdtempSync } from "node:fs";
+import { tmpdir } from "node:os";
+const axis8 = frontmatter(readFileSync(join(rulesDir, "08-testing.md"), "utf8"));
+const pf = join(mkdtempSync(join(tmpdir(), "gate-pat-")), "8.txt");
+wf(pf, axis8.patterns.join("\n") + "\n");
+const sweep = spawnSync("grep", ["-nE", "-f", pf, join(root, "examples/DemoAntiPatternsTests.swift")], { encoding: "utf8" });
+const bangHits = (sweep.stdout || "").split("\n").filter((l) => /\)!/.test(l)).length;
+console.log(`pattern-file sweep finds ')!' in fixture: ${bangHits} hit(s) ${bangHits >= 1 ? "OK" : "<-- FAIL"}`);
+if (bangHits < 1) failed = true;
+
 process.exit(failed ? 1 : 0);

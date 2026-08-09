@@ -9,7 +9,7 @@ import { tmpdir } from "node:os";
 import { join, dirname, delimiter, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const VERSION = "0.3.0";
+const VERSION = "0.3.1";
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
 // ---------------------------------------------------------------------------
@@ -286,7 +286,7 @@ console.log(`✓ ${t.claudeFound} ${claudeBin}`);
 
 // 2. Prepare the session folder (skill + rules + template, self-contained).
 const sessionDir = mkdtempSync(join(tmpdir(), "do-i-code-like-apple-"));
-for (const part of ["skill", "rules", "template"]) {
+for (const part of ["skill", "rules", "template", "scripts"]) {
   const src = join(packageRoot, part);
   if (!existsSync(src)) fail(`${t.corrupt} ${src}`);
   cpSync(src, join(sessionDir, part), { recursive: true });

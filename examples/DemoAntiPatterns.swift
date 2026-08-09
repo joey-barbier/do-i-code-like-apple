@@ -288,5 +288,17 @@ struct BlessedPatterns: View {
         } label: {
             Text("Close")                           // literal → LocalizedStringKey overload, fine
         }
+
+        // Axis 6 DNF: SF Symbol name, not an alignment — post-filter `grep -v systemName`
+        Image(systemName: "chevron.right")
+    }
+}
+
+// Axis 15 DNF: WindowGroup is not Group — the substring must NOT match
+struct DemoScene: App {
+    var body: some Scene {
+        WindowGroup {
+            DemoDashboard()
+        }
     }
 }
