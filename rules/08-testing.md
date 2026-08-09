@@ -1,8 +1,8 @@
 ---
-axe: 8
-id: tests
-titre: "Tests — Swift Testing, #require, déterminisme"
-severite: moyenne
+axis: 8
+id: testing
+title: "Testing — Swift Testing, #require, determinism"
+severity: medium
 patterns:
   - "import XCTest"
   - "XCTAssert"
@@ -10,52 +10,52 @@ patterns:
   - ")!"
   - "Calendar\\.current"
   - "Date\\(\\)"
-scope: "fichiers de tests uniquement (Tests/, *Tests.swift)"
-reference: "Apple, Swift Testing : #expect/#require remplacent XCTAssert ; #require fait échouer LE test au lieu de crasher le process ; injecter Calendar et dates pour des tests déterministes."
-lien: "https://developer.apple.com/documentation/testing"
+scope: "test files only (Tests/, *Tests.swift)"
+reference: "Apple, Swift Testing: #expect/#require replace XCTAssert; #require fails ONE test instead of crashing the process; inject Calendar and dates for deterministic tests."
+link: "https://developer.apple.com/documentation/testing"
 ---
 
-# Tests
+# Testing
 
-## Le concept
+## The concept
 
-Trois marqueurs d'un code de test « comme Apple » :
+Three markers of "coding like Apple" in tests:
 
-1. **Swift Testing** (`@Test`, `#expect`, `#require`) plutôt que XCTest —
-   messages d'échec riches, suites en struct, paramétrage `@Test(arguments:)`.
+1. **Swift Testing** (`@Test`, `#expect`, `#require`) over XCTest — richer
+   failure messages, struct suites, `@Test(arguments:)` parameterization.
 
-2. **`#require` plutôt que force-unwrap** : `fixture!` qui échoue **crashe tout
-   le process de test** — les centaines d'autres tests ne tournent jamais.
-   `try #require(fixture)` fait échouer UN test et le run continue.
+2. **`#require` over force-unwrap**: a failing `fixture!` **crashes the whole
+   test process** — hundreds of other tests never run. `try #require(fixture)`
+   fails ONE test and the run continues.
 
-3. **Déterminisme** : `Date()` et `Calendar.current` dans un test = résultat qui
-   dépend de la machine, du fuseau, du jour. Injecter une date fixe et un
-   `Calendar` explicite (ici, `Locale(identifier:)` est une BONNE pratique).
+3. **Determinism**: `Date()` and `Calendar.current` in a test = results that
+   depend on the machine, the timezone, the day. Inject a fixed date and an
+   explicit `Calendar` (here, `Locale(identifier:)` IS the best practice).
 
-## Détection (scan)
+## Detection (scan)
 
-- Ne scanner que les fichiers de tests.
-- `try!` et `)!` : **jugement** — vérifier que c'est bien un force-unwrap de
-  fixture, pas un `!=` ou une chaîne optionnelle légitime.
-- `Date()`/`Calendar.current` : finding si le test calcule du temps relatif.
+- Only scan test files.
+- `try!` and `)!`: **judgment** — confirm it is a fixture force-unwrap, not a
+  `!=` or a legitimate optional chain.
+- `Date()`/`Calendar.current`: finding when the test computes relative time.
 
-## Fix en 5 min
+## 5-minute fix
 
-Avant :
+Before:
 
 ```swift
 func testScore() {
-    let release = catalog.first(where: { $0.id == "core" })!   // crash du process si absent
-    XCTAssertEqual(engine.score(release, at: Date()), 87)      // dépend d'aujourd'hui
+    let release = catalog.first(where: { $0.id == "core" })!   // process crash if missing
+    XCTAssertEqual(engine.score(release, at: Date()), 87)      // depends on today
 }
 ```
 
-Après :
+After:
 
 ```swift
 @Test func score() throws {
-    let release = try #require(catalog.first { $0.id == "core" })  // échec propre d'UN test
+    let release = try #require(catalog.first { $0.id == "core" })  // ONE test fails cleanly
     let fixed = Date(timeIntervalSince1970: 1_750_000_000)
-    #expect(engine.score(release, at: fixed) == 87)                // même résultat partout
+    #expect(engine.score(release, at: fixed) == 87)                // same result everywhere
 }
 ```

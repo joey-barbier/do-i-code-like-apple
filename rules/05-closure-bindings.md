@@ -1,41 +1,38 @@
 ---
-axe: 5
-id: bindings-closures
-titre: "Bindings — closures vs KeyPath"
-severite: moyenne
+axis: 5
+id: closure-bindings
+title: "Bindings — closures vs KeyPath"
+severity: medium
 patterns:
   - "Binding\\(get:"
   - "Binding\\($"
   - "Binding<[^>]*>\\("
-reference: "Apple, data flow : les closure bindings allouent sur le heap à chaque évaluation du body et cachent les dépendances ; préférer $property, KeyPath et subscripts."
-lien: "https://developer.apple.com/documentation/swiftui/binding"
+reference: "Apple, data flow: closure bindings heap-allocate on every body evaluation and hide dependencies; prefer $property, KeyPath and subscripts."
+link: "https://developer.apple.com/documentation/swiftui/binding"
 ---
 
-# Bindings : closures vs KeyPath
+# Bindings: closures vs KeyPath
 
-## Le concept
+## The concept
 
-`Binding(get:set:)` construit un binding avec **deux closures allouées sur le
-heap à chaque évaluation du body**. En plus du coût, ces bindings sont opaques :
-SwiftUI ne peut pas comparer deux closures, donc ne peut pas déterminer que
-« rien n'a changé ».
+`Binding(get:set:)` builds a binding out of **two closures heap-allocated on
+every body evaluation**. Beyond the cost, these bindings are opaque: SwiftUI
+cannot compare two closures, so it can never determine that "nothing changed".
 
-Les bindings dérivés par projection (`$store.field`, `$item.name`), par
-KeyPath ou par subscript (`$store.values[id]`) sont des structures légères et
-comparables.
+Bindings derived by projection (`$store.field`, `$item.name`), by KeyPath or
+by subscript (`$store.values[id]`) are lightweight, comparable structures.
 
-## Détection (scan)
+## Detection (scan)
 
-- Patterns : `Binding(get:` sur une ligne, ou `Binding(` en fin de ligne (la
-  forme multi-lignes, la plus courante — vérifier que la ligne suivante est
-  bien `get:`).
-- **Jugement** : un closure binding dans un chemin froid (une sheet de réglages)
-  est un finding mineur. Dans un composant répété (chaque row d'une liste) ou un
-  conteneur (TabView selection), c'est un vrai coût par frame.
+- Patterns: `Binding(get:` on one line, or `Binding(` at end of line (the
+  multi-line form, the most common — check that the next line is `get:`).
+- **Judgment**: a closure binding on a cold path (a settings sheet) is a minor
+  finding. In a repeated component (every list row) or a container (TabView
+  selection), it is a real per-frame cost.
 
-## Fix en 5 min
+## 5-minute fix
 
-Avant :
+Before:
 
 ```swift
 TabView(selection: Binding(
@@ -44,9 +41,9 @@ TabView(selection: Binding(
 )) { … }
 ```
 
-Après :
+After:
 
 ```swift
-@Bindable var store: AppStore          // dans le body d'une View
+@Bindable var store: AppStore          // inside a View body
 TabView(selection: $store.selectedTab) { … }
 ```

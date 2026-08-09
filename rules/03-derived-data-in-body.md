@@ -1,29 +1,29 @@
 ---
-axe: 3
-id: derives-dans-le-body
-titre: "Dérivés recalculés dans le body"
-severite: haute
+axis: 3
+id: derived-data-in-body
+title: "Derived data recomputed in the body"
+severity: high
 patterns:
   - "\\.sorted\\("
   - "\\.sorted\\s*\\{"
   - "\\.filter\\s*[({]"
   - "Dictionary\\(grouping:"
-reference: "Apple, data flow : « computed properties still establish dependencies transitively… cache the derived value as its own stored property » ; ForEach : « don't sort or filter inline »."
-lien: "https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app"
+reference: "Apple, data flow: « computed properties still establish dependencies transitively… cache the derived value as its own stored property » ; ForEach: « don't sort or filter inline »."
+link: "https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app"
 ---
 
-# Dérivés dans le body
+# Derived data in the body
 
-## Le concept
+## The concept
 
-Trier, filtrer ou grouper **dans le body** (ou dans une computed var lue par le
-body) refait le calcul à **chaque** réévaluation — y compris quand le changement
-d'état n'a rien à voir (fermer une alerte, changer de tab). Pire : le résultat
-est un **nouveau tableau** à chaque fois, donc `ForEach` re-diffe toutes les rows.
+Sorting, filtering or grouping **in the body** (or in a computed var the body
+reads) redoes the work on **every** re-evaluation — including when the state
+change is unrelated (dismissing an alert, switching tabs). Worse: the result is
+a **fresh array** every time, so `ForEach` re-diffs every row.
 
-Invisible avec 6 éléments mock, freeze de scroll avec 200 éléments réels.
+Invisible with 6 mock items; a scroll freeze with 200 real ones.
 
-## Ce que dit Apple
+## What Apple says
 
 > Computed properties still establish dependencies transitively. The fix is to
 > cache the derived value as its own stored property and keep it in sync.
@@ -31,17 +31,17 @@ Invisible avec 6 éléments mock, freeze de scroll avec 200 éléments réels.
 > Don't sort or filter inline in ForEach. Cache the derived collection on the
 > model — recompute in a `didSet`.
 
-## Détection (scan)
+## Detection (scan)
 
-- Patterns `sorted`/`filter`/`Dictionary(grouping:)` dans des fichiers de vues.
-- **Cas ambigu (jugement)** : un `.filter` sur 3 éléments dans une vue feuille
-  n'est pas un chemin chaud. Prioriser : listes principales, dashboards,
-  compteurs lus par des conteneurs (TabView badge). Un `sorted` dans un modèle
-  ou un engine (hors SwiftUI) n'est pas un finding — c'est là qu'il doit vivre.
+- `sorted`/`filter`/`Dictionary(grouping:)` patterns in view files.
+- **Ambiguous case (judgment)**: a `.filter` over 3 items in a leaf view is not
+  a hot path. Prioritize: main lists, dashboards, counters read by containers
+  (TabView badge). A `sorted` in a model or engine (outside SwiftUI) is not a
+  finding — that is where it belongs.
 
-## Fix en 5 min
+## 5-minute fix
 
-Avant :
+Before:
 
 ```swift
 var body: some View {
@@ -49,14 +49,14 @@ var body: some View {
 }
 ```
 
-Après :
+After:
 
 ```swift
 @Observable final class Store {
     private(set) var sortedProjects: [Project] = []
     var projects: [Project] = [] {
         didSet { sortedProjects = projects.sorted { $0.criticality > $1.criticality } }
-    }   // trié UNE fois, quand la donnée change — pas à chaque render
+    }   // sorted ONCE, when the data changes — not on every render
 }
 
 var body: some View { List(store.sortedProjects) { … } }

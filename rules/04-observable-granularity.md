@@ -1,54 +1,54 @@
 ---
-axe: 4
-id: observable-granularite
-titre: "@Observable — Equatable et granularité"
-severite: moyenne
+axis: 4
+id: observable-granularity
+title: "@Observable — Equatable and granularity"
+severity: medium
 patterns:
   - "@Observable"
-reference: "Apple, Observation : le setter ne skippe l'invalidation que si le type de la propriété est Equatable ; lire un champ d'une struct = dépendre de la struct entière."
-lien: "https://developer.apple.com/documentation/observation"
+reference: "Apple, Observation: the setter can only skip invalidation when the property type is Equatable; reading one field of a struct = depending on the whole struct."
+link: "https://developer.apple.com/documentation/observation"
 ---
 
-# @Observable : Equatable et granularité
+# @Observable: Equatable and granularity
 
-## Le concept
+## The concept
 
-Deux mécaniques méconnues d'`@Observable` :
+Two under-known mechanics of `@Observable`:
 
-1. **Equatable** : quand tu assignes une propriété, Observation ne peut sauter
-   l'invalidation (`nouvelle valeur == ancienne`) **que si le type est
-   `Equatable`**. Une struct d'état non-Equatable → chaque `set` invalide les
-   vues abonnées, même si rien n'a changé.
+1. **Equatable**: when you assign a property, Observation can only skip the
+   invalidation (`new value == old value`) **if the type is `Equatable`**.
+   A non-Equatable state struct → every `set` invalidates subscribers, even
+   when nothing changed.
 
-2. **Granularité struct** : l'observation suit les propriétés de la **classe**
-   observable. Lire `store.detailState.isLoading` crée une dépendance sur
-   `detailState` **en entier** : changer n'importe quel autre champ de la struct
-   re-rend la vue.
+2. **Struct granularity**: observation tracks properties of the **observable
+   class**. Reading `store.detailState.isLoading` creates a dependency on
+   `detailState` **as a whole**: changing any other field of that struct
+   re-renders the view.
 
-## Détection (scan)
+## Detection (scan)
 
-- Localiser les classes `@Observable`, lister leurs propriétés de type struct
-  « maison », vérifier si ces structs sont `Equatable` (ou `Hashable`).
-- **Jugement** : repérer les grosses structs d'état fourre-tout lues par
-  plusieurs vues — candidates à l'aplatissement en propriétés séparées.
+- Locate `@Observable` classes, list their properties of custom struct types,
+  check whether those structs are `Equatable` (or `Hashable`).
+- **Judgment**: spot big catch-all state structs read by several views —
+  candidates for flattening into separate properties.
 
-## Fix en 5 min
+## 5-minute fix
 
-Avant :
+Before:
 
 ```swift
 struct DetailState { var isLoading = false; var items: [Item] = []; var page = 0 }
 @Observable final class Store { var detailState = DetailState() }
-// « Charger plus » (page += 1) re-rend AUSSI la vue qui ne lit que isLoading
+// "Load more" (page += 1) ALSO re-renders the view that only reads isLoading
 ```
 
-Après :
+After:
 
 ```swift
-struct DetailState: Equatable { … }        // 1 mot : les sets égaux ne re-rendent plus
-// et pour les champs chauds lus par des vues différentes : aplatir
+struct DetailState: Equatable { … }        // 1 word: equal sets no longer re-render
+// and for hot fields read by different views: flatten
 @Observable final class Store {
-    var isLoadingDetail = false            // dépendances fines par champ
+    var isLoadingDetail = false            // fine-grained, per-field dependencies
     var detailItems: [Item] = []
     var detailPage = 0
 }

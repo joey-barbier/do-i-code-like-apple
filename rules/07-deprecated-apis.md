@@ -1,8 +1,8 @@
 ---
-axe: 7
-id: apis-depreciees
-titre: "APIs soft-deprecated"
-severite: basse
+axis: 7
+id: deprecated-apis
+title: "Soft-deprecated APIs"
+severity: low
 patterns:
   - "NavigationView"
   - "\\.foregroundColor\\("
@@ -11,20 +11,19 @@ patterns:
   - "presentationMode"
   - "\\.accentColor\\("
   - "isActive:"
-reference: "Apple : NavigationView → NavigationStack ; foregroundColor → foregroundStyle ; cornerRadius → clipShape(.rect(cornerRadius:)) ; navigationBarItems → toolbar ; presentationMode → dismiss."
-lien: "https://developer.apple.com/documentation/swiftui/migrating-to-new-navigation-types"
+reference: "Apple: NavigationView → NavigationStack; foregroundColor → foregroundStyle; cornerRadius → clipShape(.rect(cornerRadius:)); navigationBarItems → toolbar; presentationMode → dismiss."
+link: "https://developer.apple.com/documentation/swiftui/migrating-to-new-navigation-types"
 ---
 
-# APIs soft-deprecated
+# Soft-deprecated APIs
 
-## Le concept
+## The concept
 
-SwiftUI déprécie en douceur : les vieilles APIs compilent sans warning parfois
-pendant des années, mais ne reçoivent plus les nouveaux comportements (styles
-hiérarchiques, deep-links typés, transitions). S'appuyer dessus, c'est
-accumuler une dette de migration silencieuse.
+SwiftUI deprecates gently: old APIs sometimes compile without warnings for
+years, but no longer receive new behaviors (hierarchical styles, typed
+deep-links, transitions). Leaning on them accrues silent migration debt.
 
-| Déprécié | Remplacement |
+| Deprecated | Replacement |
 |---|---|
 | `NavigationView` | `NavigationStack` / `NavigationSplitView` |
 | `.foregroundColor(_:)` | `.foregroundStyle(_:)` |
@@ -32,16 +31,16 @@ accumuler une dette de migration silencieuse.
 | `.navigationBarItems(…)` | `.toolbar { … }` |
 | `@Environment(\.presentationMode)` | `@Environment(\.dismiss)` |
 | `.accentColor(_:)` | `.tint(_:)` |
-| `NavigationLink(…, isActive:)` | valeur poussée dans un `NavigationPath` |
+| `NavigationLink(…, isActive:)` | value pushed onto a `NavigationPath` |
 
-## Détection (scan)
+## Detection (scan)
 
-- Patterns directs, très fiables. `isActive:` demande un coup d'œil (peut être
-  un paramètre maison) — vérifier que c'est bien un `NavigationLink`.
+- Direct patterns, highly reliable. `isActive:` needs a glance (could be a
+  custom parameter) — confirm it belongs to a `NavigationLink`.
 
-## Fix en 5 min
+## 5-minute fix
 
-Avant :
+Before:
 
 ```swift
 NavigationView {
@@ -49,7 +48,7 @@ NavigationView {
 }
 ```
 
-Après :
+After:
 
 ```swift
 NavigationStack {

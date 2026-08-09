@@ -1,21 +1,21 @@
 ---
-axe: 10
-id: modifiers-conditionnels
-titre: "Modifiers conditionnels — le pattern .if"
-severite: haute
+axis: 10
+id: conditional-modifiers
+title: "Conditional modifiers — the .if pattern"
+severity: high
 patterns:
   - "func\\s+`if`"
   - "\\.if\\("
   - "@ViewBuilder\\s+func\\s+(when|applyIf|conditional)"
-reference: "Apple (WWDC « Demystify SwiftUI ») : un if/else dans un ViewBuilder crée deux identités structurelles distinctes — un helper .if() détruit l'identité de la vue à chaque bascule : état perdu, animations cassées."
-lien: "https://developer.apple.com/videos/play/wwdc2021/10022/"
+reference: "Apple (WWDC « Demystify SwiftUI »): an if/else inside a ViewBuilder creates two distinct structural identities — a .if() helper destroys the view's identity on every toggle: state lost, animations broken."
+link: "https://developer.apple.com/videos/play/wwdc2021/10022/"
 ---
 
-# Modifiers conditionnels : le pattern `.if`
+# Conditional modifiers: the `.if` pattern
 
-## Le concept
+## The concept
 
-Le helper viral :
+The viral helper:
 
 ```swift
 extension View {
@@ -25,34 +25,33 @@ extension View {
 }
 ```
 
-semble élégant, mais le `if/else` du ViewBuilder produit un
-`_ConditionalContent<T, Self>` : **deux branches = deux identités
-structurelles**. À chaque bascule de la condition, SwiftUI considère que la vue
-est détruite et remplacée : `@State` perdu, animations cassées, scroll reset,
-transitions parasites.
+looks elegant, but the ViewBuilder's `if/else` produces a
+`_ConditionalContent<T, Self>`: **two branches = two structural identities**.
+Every time the condition flips, SwiftUI treats the view as destroyed and
+replaced: `@State` lost, animations broken, scroll reset, phantom transitions.
 
-La bonne approche : des modifiers **toujours appliqués** dont les *valeurs*
-changent — l'identité de la vue reste stable.
+The right approach: modifiers that are **always applied** whose *values*
+change — the view's identity stays stable.
 
-## Détection (scan)
+## Detection (scan)
 
-- ``func `if` `` et `.if(` : très fiables.
-- **Jugement** : un `if` d'affichage (montrer/cacher une vue entière) est
-  normal ; le finding, c'est le helper générique qui enveloppe `self`.
+- ``func `if` `` and `.if(`: highly reliable.
+- **Judgment**: a display `if` (show/hide a whole view) is normal; the finding
+  is the generic helper that wraps `self`.
 
-## Fix en 5 min
+## 5-minute fix
 
-Avant :
+Before:
 
 ```swift
 Text(title)
-    .if(isHighlighted) { $0.foregroundStyle(.orange) }   // bascule = identité détruite
+    .if(isHighlighted) { $0.foregroundStyle(.orange) }   // toggle = identity destroyed
 ```
 
-Après :
+After:
 
 ```swift
 Text(title)
-    .foregroundStyle(isHighlighted ? .orange : .primary)  // même identité, valeur qui change
-// cas complexe : opacity(x ? 1 : 0), ou un ViewModifier maison à valeurs conditionnelles
+    .foregroundStyle(isHighlighted ? .orange : .primary)  // same identity, changing value
+// complex cases: opacity(x ? 1 : 0), or a custom ViewModifier with conditional values
 ```
