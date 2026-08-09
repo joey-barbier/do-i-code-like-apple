@@ -218,17 +218,13 @@ const uiLang = sessionLang && STRINGS[sessionLang] ? sessionLang : "en";
 const t = STRINGS[uiLang];
 const title = TITLES[uiLang] ?? TITLES.en;
 
-const OCTOPUS = String.raw`
-        .-""-.
-       ( o  o )       do-i-code-like-apple v${VERSION}
-      (   u    )      « ${title} »
-       ` + "`" + String.raw`-.__.-'
-      _/(_)(_)\_      ${t.tagline}
-     ( )( )( )( )     https://libtracker.io
-      ~  ~  ~  ~
+const HEADER = `
+🐙 do-i-code-like-apple v${VERSION}
+   « ${title} »
+   ${t.tagline} — https://libtracker.io
 `;
 
-const HELP = `${OCTOPUS}
+const HELP = `${HEADER}
 ${t.intro}
 
 ${t.usage}
@@ -281,7 +277,7 @@ if (cliArgs.unknown.length > 0) {
 }
 const dryRun = cliArgs.flags.has("--dry-run");
 
-console.log(OCTOPUS);
+console.log(HEADER);
 
 // 1. Is Claude Code installed?
 const claudeBin = claudeOnPath();

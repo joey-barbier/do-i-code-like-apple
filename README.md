@@ -8,13 +8,9 @@
 > Works in your language (en, fr, es, de… any language, really).
 
 ```
-        ,---.
-       ( o o )        "Do I code like Apple?"
-        \ = /
-      .-'---'-.       npx do-i-code-like-apple
-     / | | | | \
-    (  | | | |  )
-     '-'-'-'-'-'
+🐙 do-i-code-like-apple v0.2.0
+   « Do I code like Apple? »
+   a LibTracker octopus — https://libtracker.io
 ```
 
 ![Demo](docs/demo.gif) <!-- GIF coming soon -->
@@ -107,7 +103,7 @@ examples/          # anti-pattern fixture + sample report
 ## Try it without Claude
 
 ```bash
-node bin/cli.mjs --help        # the help (and the octopus)
+node bin/cli.mjs --help        # the help (and the 🐙)
 node bin/cli.mjs --dry-run     # shows what would run, without launching claude
 open examples/report-example.html   # what a report looks like
 ```

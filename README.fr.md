@@ -8,13 +8,9 @@
 > Fonctionne dans ta langue (fr, en, es, de… n'importe laquelle en vrai).
 
 ```
-        ,---.
-       ( o o )        « Est-ce que je dev comme Apple ? »
-        \ = /
-      .-'---'-.       npx dev-comme-apple
-     / | | | | \
-    (  | | | |  )
-     '-'-'-'-'-'
+🐙 do-i-code-like-apple v0.2.0
+   « Est-ce que je dev comme Apple ? »
+   un poulpi de LibTracker — https://libtracker.io
 ```
 
 ## Lancer
@@ -79,7 +75,7 @@ anglais (lingua franca open source) ; la session le traduit pour l'utilisateur.
 ## Essayer sans Claude
 
 ```bash
-node bin/cli.mjs --help --lang fr    # l'aide (et le poulpe), en français
+node bin/cli.mjs --help --lang fr    # l'aide (et le 🐙), en français
 node bin/cli.mjs --dry-run           # montre ce qui serait lancé, sans lancer claude
 open examples/report-example.html    # à quoi ressemble un rapport
 ```
