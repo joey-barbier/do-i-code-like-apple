@@ -20,23 +20,29 @@ installiert (`claude` im PATH). Null npm-Abhängigkeiten.
 
 1. **Eine Einstufungsfrage** (Junior / Fortgeschritten / Senior) — beeinflusst
    nur die Didaktik des Reports, nie das Urteil.
-2. **Ein Quiz mit ~15 Fragen** und Code-Snippets: „Welche dieser beiden
-   Versionen würdest du schreiben?" — Invalidierungsgrenzen,
-   ForEach-Identität, abgeleitete Daten, @Observable, Bindings,
-   Lokalisierung, veraltete APIs, Tests, guard-first, bedingte Modifier.
+2. **Ein Quiz** (~12–15 Fragen aus einer Bank von 25) mit Code-Snippets.
 3. **Ein Scan deines echten Projekts** (optional): konfrontiert **was du zu
-   tun GLAUBST** mit **was dein Code ZEIGT**, Achse für Achse. Freitext-
-   Kontext möglich („Legacy/ stammt aus meinen Anfängen") — alter Code fließt
-   nie in die Note ein und dient stattdessen der Messung **deines
-   Fortschritts**.
+   tun GLAUBST** mit **was dein Code ZEIGT**, auf **16 Achsen**
+   (Invalidierungsgrenzen, ForEach-Identität, abgeleitete Daten,
+   @Observable, Bindings, Lokalisierung, veraltete APIs, Tests, guard-first,
+   bedingte Modifier, View-Inits, List-Rows, Environment-Disziplin,
+   SDK-27-Bereitschaft, Groups, Animationen). Alter Code fließt nie in die
+   Note ein — er misst stattdessen **deinen Fortschritt**.
 4. **Ein selbstständiger HTML-Report**: Gesamtnote, Oktopusse 🐙 pro Achse,
    das Duell Erklärt/Beobachtet, und die Top 3 „5-Minuten-Fixes" mit Links
    zur Apple-Doku.
 
+**Abdeckung: 100% der prüfbaren Apple-SwiftUI-Guidance** (369 von 378
+inventarisierten Empfehlungen; die übrigen 9 sind Assistenten-Prozessregeln,
+für ein beauftragtes Audit nicht anwendbar). Die vollständige
+Rückverfolgbarkeitsmatrix: [COVERAGE.md](COVERAGE.md). Jede Achse enthält
+eine **Do NOT flag**-Sektion mit den gesegneten Mustern, die ein naiver
+Linter fälschlich markieren würde.
+
 Der kanonische Inhalt ist auf Englisch; die Claude-Sitzung **übersetzt live**
-in deine Sprache — keine Sprachkopien zu pflegen. Die Regeln sind Open Source
-und per PR erweiterbar: siehe das [vollständige englische README](README.md)
-und [CONTRIBUTING.md](CONTRIBUTING.md).
+in deine Sprache. Die Regeln sind Open Source und per PR erweiterbar: siehe
+das [vollständige englische README](README.md) und
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 

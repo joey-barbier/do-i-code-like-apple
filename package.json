@@ -1,7 +1,7 @@
 {
   "name": "do-i-code-like-apple",
-  "version": "0.2.0",
-  "description": "Do I code like Apple? Self-assessment for iOS/SwiftUI developers, powered by Claude Code. Quiz + scan of your real project, a report that never shames. Multilingual (en/fr/es/de and beyond).",
+  "version": "0.3.0",
+  "description": "Do I code like Apple? Self-assessment for iOS/SwiftUI developers, powered by Claude Code. 16 axes covering 100% of Apple's checkable SwiftUI guidance (369 sub-rules and guards), quiz + scan of your real project, a report that never shames. Multilingual (en/fr/es/de and beyond).",
   "type": "module",
   "bin": {
     "do-i-code-like-apple": "bin/cli.mjs",
@@ -13,6 +13,8 @@
     "rules",
     "template",
     "examples",
+    "scripts",
+    "COVERAGE.md",
     "README.md",
     "README.fr.md",
     "README.es.md",
@@ -24,7 +26,7 @@
   },
   "scripts": {
     "start": "node bin/cli.mjs",
-    "test": "node bin/cli.mjs --dry-run"
+    "test": "node bin/cli.mjs --dry-run && node scripts/gate-fixture.mjs"
   },
   "keywords": [
     "swiftui",
@@ -37,14 +39,14 @@
     "best-practices",
     "i18n"
   ],
-  "author": "Orka (https://libtracker.io)",
+  "author": "Orka",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/joey-barbier/do-i-code-like-apple.git"
-  },
   "homepage": "https://github.com/joey-barbier/do-i-code-like-apple#readme",
   "bugs": {
     "url": "https://github.com/joey-barbier/do-i-code-like-apple/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joey-barbier/do-i-code-like-apple.git"
   }
 }
