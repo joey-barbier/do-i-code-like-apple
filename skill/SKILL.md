@@ -66,6 +66,15 @@ The full questionnaire is in `quiz.md` (same folder as this file).
 Declared score per axis = share of correct answers on that axis's questions,
 converted to octopuses (see Scoring).
 
+### Scan-only mode
+
+If the user asks to skip the quiz (they only want their code assessed), honor
+it: run steps 2-4 without declared scores. The report then has **no
+"declared" column**, **no face-off section**, the chips become pure
+code-quality verdicts (`c-ok` clean · `c-warn` improvable · `c-ko` serious
+finding · `c-mut` not scanned), and the overall score = mean of observed
+axes only. Say in the report subtitle that it is a scan-only assessment.
+
 ## Step 2 — Scan (optional)
 
 Ask:
@@ -127,6 +136,9 @@ Per axis (10 axes, defined by the `rules/` files):
 - Grades display as **octopuses**: 🐙🐙🐙🐙🐙 (1 to 5, integers).
 - **Overall score** = mean of graded axes, out of 100. Quiz-only: mean of
   declared. With scan: mean of observed (declared feeds the face-off).
+- **Axes without applicable material** (e.g. no test files in the focus for
+  the testing axis) are EXCLUDED from the mean and get a neutral `c-mut`
+  chip — never grade them 1/5 for absence.
 - **Divergences** = axes where |declared − observed| ≥ 2 octopuses, in both
   directions ("you answer better than your code" AND "your code does better
   than your answers" — the latter is a compliment, say so).
