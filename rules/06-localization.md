@@ -130,6 +130,11 @@ list separators).
   before flagging.
 - **`Locale(identifier:)` in tests** — pinning the locale there is the
   determinism best practice (axis 8).
+- **SF Symbol names matching `.right`/`.left`** — the alignment pattern
+  `\.(left|right)\b` also matches `Image(systemName: "chevron.right")`,
+  which is a symbol name, not a layout direction. Post-filter the sweep with
+  `grep -v systemName` (and glance at remaining string literals) before
+  judging.
 - **Existing `.strings`/`.stringsdict` projects** — add to the existing
   files; don't force a catalog migration as a finding.
 - **Opaque keys vs natural-language literals** — both are valid conventions;

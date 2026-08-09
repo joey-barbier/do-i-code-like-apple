@@ -23,7 +23,7 @@ patterns:
   - "guard\\s+let[^\\n]*else\\s*\\{\\s*Issue\\.record"
   - "^\\s*//\\s*(#expect|#require|XCTAssert)"
   - "#_"
-scope: "test files only (Tests/, *Tests.swift); XCUI* UI-automation targets excluded"
+scope: "test files only (Tests/, *Tests.swift); UI-automation targets excluded — both XCUI*-using files AND Xcode-convention *UITests/ folders (outside SwiftPM layout)"
 ---
 
 # Testing
@@ -128,7 +128,10 @@ depend on the machine or the day).
 ## Do NOT flag
 
 - **XCUI\*** (`XCUIApplication`, `XCUIElement`, UI-automation targets):
-  NOT migratable to Swift Testing — flagging it is a false positive.
+  NOT migratable to Swift Testing — flagging it is a false positive. This
+  exclusion covers Xcode-convention **`*UITests/` folders** too (projects
+  outside the SwiftPM `Tests/` layout): skip those directories entirely for
+  this axis, whatever their file names.
 - **Mixed XCTest + Swift Testing files/targets mid-migration**: legitimate —
   report "migration in progress", never as a failure. One class at a time is
   the sane migration unit.

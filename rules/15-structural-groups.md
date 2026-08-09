@@ -4,7 +4,7 @@ id: structural-groups
 title: "Structural Groups — no single-child wrappers"
 severity: medium
 patterns:
-  - "Group\\s*\\{"
+  - "(^|[^a-zA-Z])Group\\s*\\{"
 ---
 
 # Structural Groups
@@ -21,7 +21,10 @@ branches — a single static child needs no Group.
 
 - **15.1 No single-child Group** (med, GREP + JUDGMENT). A Group whose body
   is a single expression with no branching — unwrap it; apply the modifiers
-  directly to the child.
+  directly to the child. The pattern requires a non-letter before `Group` so
+  `WindowGroup {` doesn't match by substring; if you sweep manually with a
+  looser pattern, post-filter with
+  `grep -v -E '(Window|Dialog|Form|Control)Group'`.
 
 ## Do NOT flag
 
