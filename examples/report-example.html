@@ -139,6 +139,9 @@ pre code { background: none; padding: 0; }
 .fix-item { background: var(--card); border: var(--border); box-shadow: var(--shadow); border-radius: 4px; padding: 16px; }
 .fix-item h3 { margin: 0 0 6px; font-size: 15px; font-weight: 900; }
 .fix-item .avant-apres { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+/* Grid children default to min-width:auto -- a wide <pre> widens its column past
+   the card instead of scrolling. min-width:0 lets the pre's overflow-x:auto engage. */
+.fix-item .avant-apres > div, .duel-body > .duel-col { min-width: 0; }
 .fix-item .lbl { display: block; font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin: 6px 0 2px; }
 .fix-item a { color: #7A4FD1; font-weight: 700; }
 @media (max-width: 640px) { .fix-item .avant-apres { grid-template-columns: 1fr; } }
