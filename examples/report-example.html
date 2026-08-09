@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Est-ce que je dev comme Apple ? — Rapport d'exemple</title>
+<title>Do I code like Apple? — Sample report</title>
 <style>
-/* dev-comme-apple — rapport néo-brutaliste. Créé par Orka. */
+/* do-i-code-like-apple — neo-brutalist report. Created by Orka. */
 :root {
   --bg: #FAF4F0;
   --card: #FFFFFF;
@@ -50,7 +50,7 @@ h2 { font-size: 22px; font-weight: 900; margin: 0 0 4px; letter-spacing: -0.01em
 
 section > .card { background: var(--card); border: var(--border); box-shadow: var(--shadow); border-radius: 4px; }
 
-/* score global */
+/* overall score */
 .score-hero {
   display: inline-flex; align-items: baseline; gap: 12px; margin-top: 16px;
   background: var(--accent); border: var(--border); box-shadow: var(--shadow);
@@ -80,11 +80,11 @@ section > .card { background: var(--card); border: var(--border); box-shadow: va
 .c-acc  { background: var(--accent); }
 .c-mut  { background: #E8E0DA; }
 
-/* score en poulpes — la note officielle de la maison (1 à 5 🐙) */
+/* octopus grades — the house rating (1 to 5 🐙) */
 .poulpes { font-size: 15px; letter-spacing: 2px; white-space: nowrap; }
 .poulpes .off { opacity: 0.18; filter: grayscale(1); }
 
-/* périmètre évalué */
+/* graded scope */
 .perimetre {
   background: var(--card); border: var(--border); box-shadow: var(--shadow-sm); border-radius: 4px;
   padding: 12px 16px; font-size: 13.5px;
@@ -108,7 +108,7 @@ pre {
 }
 pre code { background: none; padding: 0; }
 
-/* face-à-face « tu réponds vs ton code montre » */
+/* face-off "what you answer vs what your code shows" */
 .duel { display: flex; flex-direction: column; gap: 16px; }
 .duel-item { background: var(--card); border: var(--border); box-shadow: var(--shadow); border-radius: 4px; overflow: hidden; }
 .duel-head {
@@ -120,7 +120,7 @@ pre code { background: none; padding: 0; }
 .duel-col { padding: 12px 16px; font-size: 13.5px; }
 .duel-col + .duel-col { border-left: 1px solid #DDD3CC; }
 .duel-col .lbl { display: block; font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
-.lbl-toi { color: #7A4FD1; }
+.lbl-you { color: #7A4FD1; }
 .lbl-code { color: #C2367F; }
 .duel-action { padding: 10px 16px; font-size: 13px; border-top: 1px solid #DDD3CC; background: #FDFAF8; }
 .duel-action b { font-weight: 800; }
@@ -129,12 +129,12 @@ pre code { background: none; padding: 0; }
   .duel-col + .duel-col { border-left: none; border-top: 1px solid #DDD3CC; }
 }
 
-/* progression (legacy → récent) */
+/* progress (legacy → recent) */
 .progression { background: var(--card); border: var(--border); box-shadow: var(--shadow); border-radius: 4px; padding: 16px; }
 .progression ul { margin: 0; padding-left: 18px; font-size: 13.5px; display: flex; flex-direction: column; gap: 8px; }
 .progression .acquis { font-weight: 800; color: #2E7D32; white-space: nowrap; }
 
-/* fixes 5 minutes */
+/* 5-minute fixes */
 .fixes { display: flex; flex-direction: column; gap: 16px; }
 .fix-item { background: var(--card); border: var(--border); box-shadow: var(--shadow); border-radius: 4px; padding: 16px; }
 .fix-item h3 { margin: 0 0 6px; font-size: 15px; font-weight: 900; }
@@ -154,184 +154,184 @@ pre code { background: none; padding: 0; }
 <main>
 
 <header>
-  <span class="eyebrow">dev-comme-apple · exemple · données factices</span>
-  <h1>Est-ce que je dev comme Apple ?</h1>
-  <p class="sub"><strong>Verdict en une ligne : tu connais les règles mieux que ton code ne les applique — trois fixes de 5 minutes referment l'essentiel de l'écart.</strong>
-  Niveau déclaré : confirmé · mode QCM + scan. Rapport d'exemple généré avec des données factices pour la démo.</p>
-  <div class="score-hero"><b>68/100</b><span>score global</span></div>
+  <span class="eyebrow">do-i-code-like-apple · sample · fake data</span>
+  <h1>Do I code like Apple?</h1>
+  <p class="sub"><strong>One-line verdict: you know the rules better than your code applies them — three 5-minute fixes close most of the gap.</strong>
+  Declared level: seasoned · mode: quiz + scan. Sample report generated with fake data for the demo.</p>
+  <div class="score-hero"><b>68/100</b><span>overall score</span></div>
 </header>
 
 <section>
   <div class="stats">
-    <div class="stat"><b>15</b><span>questions répondues</span></div>
-    <div class="stat"><b>34</b><span>fichiers scannés (focus)</span></div>
+    <div class="stat"><b>15</b><span>questions answered</span></div>
+    <div class="stat"><b>34</b><span>files scanned (focus)</span></div>
     <div class="stat"><b>23</b><span>findings</span></div>
     <div class="stat"><b>3</b><span>divergences</span></div>
-    <div class="stat"><b>2</b><span>acquis prouvés</span></div>
+    <div class="stat"><b>2</b><span>proven wins</span></div>
   </div>
 </section>
 
 <section>
-  <div class="perimetre">📍 <b>Périmètre évalué :</b> <code>Features/Checkout</code> — 34 fichiers Swift (ton niveau actuel, déclaré) ;
-  <code>Legacy/</code> (61 fichiers) analysé pour la progression uniquement ; exclus : <code>Vendor/</code>, <code>Pods/</code>.</div>
+  <div class="perimetre">📍 <b>Graded scope:</b> <code>Features/Checkout</code> — 34 Swift files (your declared current level);
+  <code>Legacy/</code> (61 files) analyzed for progress only; excluded: <code>Vendor/</code>, <code>Pods/</code>.</div>
 </section>
 
 <section>
-  <h2>Les 10 axes — ce que tu réponds 🆚 ce que ton code montre</h2>
-  <p class="h2-note">La note maison va de 1 à 5 poulpes. Colonne « déclaré » = tes réponses au QCM ;
-  « observé » = ton code (scope focus uniquement).</p>
+  <h2>The 10 axes — what you answer 🆚 what your code shows</h2>
+  <p class="h2-note">The house rating goes from 1 to 5 octopuses. "Declared" = your quiz answers;
+  "observed" = your code (focus scope only).</p>
   <div class="card tablewrap">
     <table>
-      <tr><th>Axe</th><th>Déclaré</th><th>Observé</th><th>Verdict</th><th>En un mot</th></tr>
+      <tr><th>Axis</th><th>Declared</th><th>Observed</th><th>Verdict</th><th>In one line</th></tr>
       <tr>
-        <td>1 · Frontières d'invalidation</td>
+        <td>1 · Invalidation boundaries</td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙🐙</span></td>
         <td class="grade"><span class="poulpes">🐙🐙<span class="off">🐙🐙🐙</span></span></td>
         <td><span class="chip c-warn">DIVERGENCE</span></td>
-        <td>Tu as choisi les nested View structs au QCM ; 11 écrans sur 14 sont en computed vars.</td>
+        <td>You picked nested View structs in the quiz; 11 of 14 screens use computed vars.</td>
       </tr>
       <tr>
-        <td>2 · Identité ForEach</td>
+        <td>2 · ForEach identity</td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙🐙</span></td>
         <td class="grade"><span class="poulpes">🐙🐙🐙<span class="off">🐙🐙</span></span></td>
         <td><span class="chip c-warn">DIVERGENCE</span></td>
-        <td>Règle connue, mais 7 <code>id: \.self</code> restants sur des données éditables.</td>
+        <td>Rule known, but 7 remaining <code>id: \.self</code> on editable data.</td>
       </tr>
       <tr>
-        <td>3 · Dérivés dans le body</td>
+        <td>3 · Derived data in the body</td>
         <td class="grade"><span class="poulpes">🐙🐙🐙<span class="off">🐙🐙</span></span></td>
         <td class="grade"><span class="poulpes">🐙🐙<span class="off">🐙🐙🐙</span></span></td>
-        <td><span class="chip c-ko">FINDING SÉRIEUX</span></td>
-        <td>Le tri du dashboard vit dans le body — chemin chaud, recalcul à chaque render.</td>
+        <td><span class="chip c-ko">SERIOUS FINDING</span></td>
+        <td>The dashboard sort lives in the body — hot path, recomputed every render.</td>
       </tr>
       <tr>
         <td>4 · @Observable</td>
         <td class="grade"><span class="poulpes">🐙🐙🐙<span class="off">🐙🐙</span></span></td>
         <td class="grade"><span class="poulpes">🐙🐙🐙<span class="off">🐙🐙</span></span></td>
-        <td><span class="chip c-ok">ALIGNÉ</span></td>
-        <td>Deux structs d'état non-Equatable — 1 mot à ajouter, littéralement.</td>
+        <td><span class="chip c-ok">ALIGNED</span></td>
+        <td>Two non-Equatable state structs — literally one word to add.</td>
       </tr>
       <tr>
         <td>5 · Bindings</td>
         <td class="grade"><span class="poulpes">🐙🐙<span class="off">🐙🐙🐙</span></span></td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙<span class="off">🐙</span></span></td>
-        <td><span class="chip c-ok">MIEUX QUE TES RÉPONSES</span></td>
-        <td>Un seul <code>Binding(get:set:)</code> dans tout le focus — ton code fait mieux que ton QCM 👏.</td>
+        <td><span class="chip c-ok">BETTER THAN YOUR ANSWERS</span></td>
+        <td>A single <code>Binding(get:set:)</code> in the whole focus — your code beats your quiz 👏.</td>
       </tr>
       <tr>
-        <td>6 · Localisation</td>
+        <td>6 · Localization</td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙<span class="off">🐙</span></span></td>
         <td class="grade"><span class="poulpes">🐙🐙<span class="off">🐙🐙🐙</span></span></td>
         <td><span class="chip c-warn">DIVERGENCE</span></td>
-        <td>Strings centralisées (bien !) mais typées <code>String</code> → jamais extraites.</td>
+        <td>Strings centralized (nice!) but typed <code>String</code> → never extracted.</td>
       </tr>
       <tr>
-        <td>7 · APIs soft-deprecated</td>
+        <td>7 · Soft-deprecated APIs</td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙🐙</span></td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙🐙</span></td>
-        <td><span class="chip c-ok">ALIGNÉ</span></td>
-        <td>Zéro API dépréciée dans le focus. Propre.</td>
+        <td><span class="chip c-ok">ALIGNED</span></td>
+        <td>Zero deprecated API in the focus. Clean.</td>
       </tr>
       <tr>
-        <td>8 · Tests</td>
+        <td>8 · Testing</td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙<span class="off">🐙</span></span></td>
         <td class="grade"><span class="poulpes">🐙🐙🐙<span class="off">🐙🐙</span></span></td>
-        <td><span class="chip c-ok">ALIGNÉ</span></td>
-        <td>Swift Testing partout ; 2 force-unwraps de fixtures à passer en <code>#require</code>.</td>
+        <td><span class="chip c-ok">ALIGNED</span></td>
+        <td>Swift Testing everywhere; 2 fixture force-unwraps to move to <code>#require</code>.</td>
       </tr>
       <tr>
         <td>9 · Guard-first</td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙🐙</span></td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙<span class="off">🐙</span></span></td>
-        <td><span class="chip c-ok">ALIGNÉ</span></td>
-        <td>Happy path à plat quasi partout — une pyramide résiduelle dans le router.</td>
+        <td><span class="chip c-ok">ALIGNED</span></td>
+        <td>Flat happy path almost everywhere — one residual pyramid in the router.</td>
       </tr>
       <tr>
-        <td>10 · Modifiers conditionnels</td>
+        <td>10 · Conditional modifiers</td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙🐙</span></td>
         <td class="grade"><span class="poulpes">🐙🐙🐙🐙🐙</span></td>
-        <td><span class="chip c-ok">ALIGNÉ</span></td>
-        <td>Aucun helper <code>.if</code> — l'identité de tes vues est stable.</td>
+        <td><span class="chip c-ok">ALIGNED</span></td>
+        <td>No <code>.if</code> helper — your views' identity is stable.</td>
       </tr>
     </table>
   </div>
 </section>
 
 <section>
-  <h2>Le face-à-face</h2>
-  <p class="h2-note">Là où tes réponses et ton code racontent deux histoires différentes.
-  C'est la partie la plus utile du rapport — et ça marche dans les deux sens.</p>
+  <h2>The face-off</h2>
+  <p class="h2-note">Where your answers and your code tell two different stories.
+  The most useful part of the report — and it works in both directions.</p>
   <div class="duel">
 
     <div class="duel-item">
-      <div class="duel-head"><h3>Axe 1 — Frontières d'invalidation</h3><span class="chip c-warn">DIVERGENCE</span></div>
+      <div class="duel-head"><h3>Axis 1 — Invalidation boundaries</h3><span class="chip c-warn">DIVERGENCE</span></div>
       <div class="duel-body">
-        <div class="duel-col"><span class="lbl lbl-toi">Ce que tu réponds</span>Q1 : tu as choisi les nested View structs, avec la bonne justification (« sinon tout l'écran se réévalue »).</div>
-        <div class="duel-col"><span class="lbl lbl-code">Ce que ton code montre</span>11 écrans sur 14 en computed vars, ex. <code>CheckoutSummary.swift:48</code> : <code>private var totalSection: some View</code> — inlinée dans le body, aucune frontière.</div>
+        <div class="duel-col"><span class="lbl lbl-you">What you answer</span>Q1: you picked nested View structs, with the right justification ("otherwise the whole screen re-evaluates").</div>
+        <div class="duel-col"><span class="lbl lbl-code">What your code shows</span>11 of 14 screens use computed vars, e.g. <code>CheckoutSummary.swift:48</code>: <code>private var totalSection: some View</code> — inlined into the body, no boundary.</div>
       </div>
-      <div class="duel-action"><b>Réconciliation :</b> tu sais déjà pourquoi — il ne reste que le geste. Extrais d'abord les sections qui lisent l'état du store (les feuilles statiques peuvent attendre). Une section = un <code>struct … : View</code> imbriqué, mécanique, sans risque.</div>
+      <div class="duel-action"><b>Reconciliation:</b> you already know why — only the move is missing. Extract the sections that read store state first (static leaves can wait). One section = one nested <code>struct … : View</code>, mechanical, risk-free.</div>
     </div>
 
     <div class="duel-item">
-      <div class="duel-head"><h3>Axe 6 — Localisation</h3><span class="chip c-warn">DIVERGENCE</span></div>
+      <div class="duel-head"><h3>Axis 6 — Localization</h3><span class="chip c-warn">DIVERGENCE</span></div>
       <div class="duel-body">
-        <div class="duel-col"><span class="lbl lbl-toi">Ce que tu réponds</span>Q9 : bonne réponse, tu connais l'overload piège de <code>Text(String)</code>.</div>
-        <div class="duel-col"><span class="lbl lbl-code">Ce que ton code montre</span><code>L10n.swift</code> centralise 87 strings (excellente hygiène) — mais typées <code>String</code> : rien ne part dans le String Catalog. + 2 <code>Locale(identifier: "fr_FR")</code> dans <code>PriceFormatter.swift:12</code>.</div>
+        <div class="duel-col"><span class="lbl lbl-you">What you answer</span>Q9: correct answer, you know the <code>Text(String)</code> overload trap.</div>
+        <div class="duel-col"><span class="lbl lbl-code">What your code shows</span><code>L10n.swift</code> centralizes 87 strings (excellent hygiene) — but typed <code>String</code>: nothing reaches the String Catalog. Plus 2 <code>Locale(identifier: "en_US")</code> in <code>PriceFormatter.swift:12</code>.</div>
       </div>
-      <div class="duel-action"><b>Réconciliation :</b> retyper <code>String</code> → <code>LocalizedStringResource</code> (rendu identique aujourd'hui, catalogue qui se remplit tout seul pour demain), et laisser la locale venir de l'environnement.</div>
+      <div class="duel-action"><b>Reconciliation:</b> retype <code>String</code> → <code>LocalizedStringResource</code> (identical rendering today, a catalog that fills itself for tomorrow), and let the locale come from the environment.</div>
     </div>
 
     <div class="duel-item">
-      <div class="duel-head"><h3>Axe 5 — Bindings</h3><span class="chip c-ok">MIEUX QUE TES RÉPONSES</span></div>
+      <div class="duel-head"><h3>Axis 5 — Bindings</h3><span class="chip c-ok">BETTER THAN YOUR ANSWERS</span></div>
       <div class="duel-body">
-        <div class="duel-col"><span class="lbl lbl-toi">Ce que tu réponds</span>Q8 : tu as choisi le closure binding au QCM.</div>
-        <div class="duel-col"><span class="lbl lbl-code">Ce que ton code montre</span>Un seul <code>Binding(get:set:)</code> sur tout le focus — partout ailleurs, <code>$store.…</code> via <code>@Bindable</code>.</div>
+        <div class="duel-col"><span class="lbl lbl-you">What you answer</span>Q8: you picked the closure binding in the quiz.</div>
+        <div class="duel-col"><span class="lbl lbl-code">What your code shows</span>A single <code>Binding(get:set:)</code> in the whole focus — everywhere else, <code>$store.…</code> via <code>@Bindable</code>.</div>
       </div>
-      <div class="duel-action"><b>À savourer :</b> ton instinct de code est en avance sur ta théorie ici — c'est le sens de divergence qu'on préfère. La règle derrière ton instinct : les closures s'allouent à chaque body et ne se comparent pas.</div>
+      <div class="duel-action"><b>To savor:</b> your code instinct is ahead of your theory here — the direction of divergence we like best. The rule behind your instinct: closures allocate on every body and cannot be compared.</div>
     </div>
 
   </div>
 </section>
 
 <section>
-  <h2>Ta progression 📈</h2>
-  <p class="h2-note">Ton code d'avant comparé à ton code d'aujourd'hui — la preuve par le diff.
-  On ne t'évalue jamais sur ton code d'il y a 3 ans, mais il raconte le chemin parcouru.</p>
+  <h2>Your progress 📈</h2>
+  <p class="h2-note">Your old code vs your current code — proof by diff.
+  Nobody gets graded on 3-year-old code, but it tells the road travelled.</p>
   <div class="progression">
     <ul>
-      <li><code>id: \.self</code> — 12 occurrences dans le legacy, 0 nouvelle dans ton code récent (7 héritées en cours de résorption) <span class="acquis">→ acquis ✓</span></li>
-      <li><code>NavigationView</code> — 9 occurrences dans le legacy, 0 dans ton code récent : tu es passé à <code>NavigationStack</code> <span class="acquis">→ acquis ✓</span></li>
+      <li><code>id: \.self</code> — 12 occurrences in legacy, 0 new in your recent code (7 inherited ones being phased out) <span class="acquis">→ mastered ✓</span></li>
+      <li><code>NavigationView</code> — 9 occurrences in legacy, 0 in your recent code: you moved to <code>NavigationStack</code> <span class="acquis">→ mastered ✓</span></li>
     </ul>
   </div>
 </section>
 
 <section>
-  <h2>Top 3 — fixes 5 minutes</h2>
-  <p class="h2-note">Les plus rentables d'abord. Chaque fix : avant, après, et la doc Apple qui l'explique.</p>
+  <h2>Top 3 — five-minute fixes</h2>
+  <p class="h2-note">Highest-yield first. Each fix: before, after, and the Apple doc explaining it.</p>
   <div class="fixes">
 
     <div class="fix-item">
-      <h3>1 · Sortir le tri du body du dashboard <span class="chip c-ok">5 MIN</span></h3>
+      <h3>1 · Move the sort out of the dashboard body <span class="chip c-ok">5 MIN</span></h3>
       <div class="avant-apres">
-        <div><span class="lbl">Avant</span><pre><code>List(store.projects
+        <div><span class="lbl">Before</span><pre><code>List(store.projects
   .sorted { $0.criticality > $1.criticality }) { … }</code></pre></div>
-        <div><span class="lbl">Après</span><pre><code>// Store :
+        <div><span class="lbl">After</span><pre><code>// Store:
 var projects: [Project] = [] {
   didSet { sorted = projects.sorted { … } }
 }
-// Vue :
+// View:
 List(store.sorted) { … }</code></pre></div>
       </div>
       <a href="https://developer.apple.com/documentation/swiftui/managing-model-data-in-your-app">→ Managing model data in your app</a>
     </div>
 
     <div class="fix-item">
-      <h3>2 · <code>Equatable</code> sur les structs d'état <span class="chip c-ok">1 MOT</span></h3>
+      <h3>2 · <code>Equatable</code> on state structs <span class="chip c-ok">1 WORD</span></h3>
       <div class="avant-apres">
-        <div><span class="lbl">Avant</span><pre><code>struct CheckoutState {
+        <div><span class="lbl">Before</span><pre><code>struct CheckoutState {
   var step = 0; var isPaying = false
 }</code></pre></div>
-        <div><span class="lbl">Après</span><pre><code>struct CheckoutState: Equatable {
+        <div><span class="lbl">After</span><pre><code>struct CheckoutState: Equatable {
   var step = 0; var isPaying = false
 }</code></pre></div>
       </div>
@@ -339,13 +339,13 @@ List(store.sorted) { … }</code></pre></div>
     </div>
 
     <div class="fix-item">
-      <h3>3 · Fixtures de tests en <code>#require</code> <span class="chip c-ok">5 MIN</span></h3>
+      <h3>3 · Test fixtures via <code>#require</code> <span class="chip c-ok">5 MIN</span></h3>
       <div class="avant-apres">
-        <div><span class="lbl">Avant</span><pre><code>let item = catalog.first { $0.id == "core" }!
-// échec = crash de TOUT le run</code></pre></div>
-        <div><span class="lbl">Après</span><pre><code>let item = try #require(
+        <div><span class="lbl">Before</span><pre><code>let item = catalog.first { $0.id == "core" }!
+// failure = the WHOLE run crashes</code></pre></div>
+        <div><span class="lbl">After</span><pre><code>let item = try #require(
   catalog.first { $0.id == "core" })
-// échec = UN test rouge, le run continue</code></pre></div>
+// failure = ONE red test, the run continues</code></pre></div>
       </div>
       <a href="https://developer.apple.com/documentation/testing">→ Swift Testing</a>
     </div>
@@ -354,12 +354,12 @@ List(store.sorted) { … }</code></pre></div>
 </section>
 
 <footer>
-  <p class="foot"><span class="poulpi">🐙</span> Rapport généré par
-  <code>npx dev-comme-apple</code> — par le développeur de
-  <a href="https://libtracker.io">LibTracker</a> (le poulpi, c'est de famille).
-  Réalisé en BuildInPublic sur <a href="https://www.twitch.tv/horka_tv">Horka_TV</a>
-  · propulsé par Claude Code. Les règles d'évaluation sont open source et
-  contribuables par PR.</p>
+  <p class="foot"><span class="poulpi">🐙</span> Report generated by
+  <code>npx do-i-code-like-apple</code> — by the developer of
+  <a href="https://libtracker.io">LibTracker</a> (the octopus runs in the family).
+  Built in public on <a href="https://www.twitch.tv/horka_tv">Horka_TV</a>
+  · powered by Claude Code. The evaluation rules are open source —
+  contributions welcome.</p>
 </footer>
 
 </main>

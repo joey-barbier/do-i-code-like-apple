@@ -1,13 +1,13 @@
-// DemoAntiPatterns.swift — Créé par Orka
-// Fichier de démonstration VOLONTAIREMENT bourré d'anti-patterns :
-// il sert de fixture pour tester le scan de dev-comme-apple.
-// Chaque bloc est annoté avec l'axe qu'il doit déclencher. NE PAS s'en inspirer.
+// DemoAntiPatterns.swift — Created by Orka
+// Demo file DELIBERATELY packed with anti-patterns:
+// it serves as a fixture to test the do-i-code-like-apple scan.
+// Each block is annotated with the axis it must trigger. Do NOT take inspiration.
 
 import SwiftUI
 
-// MARK: - Axe 4 : struct d'état non-Equatable dans un @Observable
+// MARK: - Axis 4: non-Equatable state struct inside an @Observable
 
-struct DashboardState {          // pas Equatable → chaque set invalide
+struct DashboardState {          // not Equatable → every set invalidates
     var isLoading = false
     var projects: [Project] = []
     var page = 0
@@ -16,7 +16,7 @@ struct DashboardState {          // pas Equatable → chaque set invalide
 @Observable final class DemoStore {
     var state = DashboardState()
     var selectedTab = 0
-    var demoTitle = "Mes projets"        // String, pas LocalizedStringResource (axe 6)
+    var demoTitle = "My projects"        // String, not LocalizedStringResource (axis 6)
 }
 
 struct Project: Hashable {
@@ -24,28 +24,28 @@ struct Project: Hashable {
     var criticality: Int
 }
 
-// MARK: - Écran principal
+// MARK: - Main screen
 
 struct DemoDashboard: View {
     @State private var store = DemoStore()
 
     var body: some View {
-        // Axe 7 : NavigationView est soft-deprecated (→ NavigationStack)
+        // Axis 7: NavigationView is soft-deprecated (→ NavigationStack)
         NavigationView {
             VStack {
                 header
-                // Axe 3 : tri inline dans le body — recalculé à chaque render
-                // Axe 2 : id: \.self — identité = valeur, pas d'id stable
+                // Axis 3: inline sort in the body — recomputed on every render
+                // Axis 2: id: \.self — identity = value, no stable id
                 List(store.state.projects.sorted { $0.criticality > $1.criticality },
                      id: \.self) { project in
                     ProjectRow(project: project)
                 }
-                // Axe 2 : indices comme identité
+                // Axis 2: indices as identity
                 ForEach(0..<store.state.projects.count, id: \.self) { i in
                     Text(store.state.projects[i].name)
                 }
             }
-            // Axe 5 : closure binding — deux allocations heap par body
+            // Axis 5: closure binding — two heap allocations per body
             .sheet(isPresented: Binding(
                 get: { store.state.isLoading },
                 set: { store.state.isLoading = $0 }
@@ -53,15 +53,15 @@ struct DemoDashboard: View {
         }
     }
 
-    // Axe 1 : section en computed var — inlinée dans le body, aucune frontière
+    // Axis 1: section as computed var — inlined into the body, no boundary
     private var header: some View {
         VStack {
-            // Axe 6 : Text(variable String) → overload StringProtocol, jamais localisé
+            // Axis 6: Text(String variable) → StringProtocol overload, never localized
             Text(store.demoTitle)
-                // Axe 7 : foregroundColor + cornerRadius soft-deprecated
+                // Axis 7: foregroundColor + cornerRadius soft-deprecated
                 .foregroundColor(.secondary)
                 .cornerRadius(8)
-            // Axe 6 : locale hardcodée — ignore les réglages utilisateur
+            // Axis 6: hardcoded locale — ignores user settings
             Text(Date().formatted(.dateTime.locale(Locale(identifier: "fr_FR"))))
         }
     }
@@ -73,12 +73,12 @@ struct ProjectRow: View {
 
     var body: some View {
         Text(project.name)
-            // Axe 10 : pattern .if — détruit l'identité structurelle à chaque bascule
+            // Axis 10: .if pattern — destroys structural identity on every toggle
             .if(isHighlighted) { $0.foregroundColor(.orange) }
     }
 }
 
-// Axe 10 : le helper conditionnel lui-même
+// Axis 10: the conditional helper itself
 extension View {
     @ViewBuilder
     func `if`<T: View>(_ condition: Bool, transform: (Self) -> T) -> some View {
@@ -86,7 +86,7 @@ extension View {
     }
 }
 
-// MARK: - Axe 9 : pyramide de if let au lieu de guard-first
+// MARK: - Axis 9: if-let pyramid instead of guard-first
 
 enum DemoRouter {
     static var path: [String] = []

@@ -1,8 +1,8 @@
-// DemoAntiPatternsTests.swift — Créé par Orka
-// Fixture de tests VOLONTAIREMENT fautive pour l'axe 8 du scan.
-// NE PAS s'en inspirer.
+// DemoAntiPatternsTests.swift — Created by Orka
+// Test fixture DELIBERATELY faulty, for axis 8 of the scan.
+// Do NOT take inspiration.
 
-import XCTest                                    // Axe 8 : XCTest au lieu de Swift Testing
+import XCTest                                    // Axis 8: XCTest instead of Swift Testing
 
 final class DemoAntiPatternsTests: XCTestCase {
 
@@ -12,20 +12,20 @@ final class DemoAntiPatternsTests: XCTestCase {
     ]
 
     func testMostCriticalProject() {
-        // Axe 8 : force-unwrap de fixture — un échec crashe TOUT le process de test
+        // Axis 8: fixture force-unwrap — a failure crashes the WHOLE test process
         let core = catalog.first(where: { $0.name == "core" })!
         XCTAssertEqual(core.criticality, 3)
     }
 
     func testRecentDate() {
-        // Axe 8 : Date() et Calendar.current — résultat dépendant de la machine et du jour
+        // Axis 8: Date() and Calendar.current — machine- and day-dependent result
         let now = Date()
         let isWeekend = Calendar.current.isDateInWeekend(now)
-        XCTAssertFalse(isWeekend)                // rouge un samedi, vert un lundi…
+        XCTAssertFalse(isWeekend)                // red on Saturdays, green on Mondays…
     }
 
     func testDecoding() {
-        // Axe 8 : try! — crash du process au lieu d'un échec de test
+        // Axis 8: try! — process crash instead of a test failure
         let data = try! JSONEncoder().encode(["name": "core"])
         XCTAssertFalse(data.isEmpty)
     }
