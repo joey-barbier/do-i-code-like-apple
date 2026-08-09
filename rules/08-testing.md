@@ -35,6 +35,10 @@ Three markers of "coding like Apple" in tests:
 ## Detection (scan)
 
 - Only scan test files.
+- **No test files in the focus scope**: this axis is NOT gradable — give it a
+  neutral chip (`c-mut`, "no tests in scope"), EXCLUDE it from the overall
+  mean, and never grade it 1/5 for absence. Whether missing tests deserve a
+  remark belongs to the report's prose, not to this axis's score.
 - `try!` and `)!`: **judgment** — confirm it is a fixture force-unwrap, not a
   `!=` or a legitimate optional chain.
 - `Date()`/`Calendar.current`: finding when the test computes relative time.

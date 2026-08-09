@@ -31,6 +31,15 @@ the locale instead of following the user's (environment).
 - `Text(variable)`: **judgment required** — trace the variable's type. If it
   is UI copy (label, title) typed `String`, finding. If it is user data
   (a project name, a message), it is fine.
+- **`Text(verbatim:` NEVER counts** — it is the explicit "not localizable on
+  purpose" API, i.e. the RIGHT practice. The regex above already excludes it
+  (the `:` after `verbatim` breaks the match), but if you simplify the
+  pattern while scanning (e.g. grep only `Text\([a-z]`), filter `verbatim:`
+  matches back out.
+- **Upstream `String(localized:)` pipeline**: a variable that carries the
+  result of `String(localized:)` (or a formatter fed by it) IS functionally
+  localized even though `Text(variable)` takes the StringProtocol overload —
+  do not count it. Trace one level up before flagging.
 
 ## 5-minute fix
 
