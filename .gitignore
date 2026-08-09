@@ -1,0 +1,10 @@
+# Node
+node_modules/
+npm-debug.log*
+*.tgz
+
+# OS
+.DS_Store
+
+# Rapports générés localement (le rapport d'exemple dans examples/ est versionné)
+/rapport.html
