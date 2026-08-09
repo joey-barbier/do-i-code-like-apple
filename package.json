@@ -1,9 +1,10 @@
 {
-  "name": "dev-comme-apple",
-  "version": "0.1.0",
-  "description": "Est-ce que je dev comme Apple ? Auto-évaluation SwiftUI pour devs iOS, propulsée par Claude Code. QCM + scan de ton vrai projet, rapport HTML jamais culpabilisant.",
+  "name": "do-i-code-like-apple",
+  "version": "0.2.0",
+  "description": "Do I code like Apple? Self-assessment for iOS/SwiftUI developers, powered by Claude Code. Quiz + scan of your real project, a report that never shames. Multilingual (en/fr/es/de and beyond).",
   "type": "module",
   "bin": {
+    "do-i-code-like-apple": "bin/cli.mjs",
     "dev-comme-apple": "bin/cli.mjs"
   },
   "files": [
@@ -13,6 +14,9 @@
     "template",
     "examples",
     "README.md",
+    "README.fr.md",
+    "README.es.md",
+    "README.de.md",
     "LICENSE"
   ],
   "engines": {
@@ -27,15 +31,16 @@
     "ios",
     "swift",
     "audit",
-    "auto-evaluation",
+    "self-assessment",
     "claude-code",
     "apple",
-    "best-practices"
+    "best-practices",
+    "i18n"
   ],
   "author": "Orka",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/horka-tv/dev-comme-apple.git"
+    "url": "https://github.com/horka-tv/do-i-code-like-apple.git"
   }
 }

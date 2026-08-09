@@ -6,5 +6,5 @@ npm-debug.log*
 # OS
 .DS_Store
 
-# Rapports générés localement (le rapport d'exemple dans examples/ est versionné)
-/rapport.html
+# Locally generated reports (the sample report in examples/ is versioned)
+/report.html
