@@ -1,106 +1,120 @@
-# 🐙 dev-comme-apple
+**English** · [Français](README.fr.md) · [Español](README.es.md) · [Deutsch](README.de.md)
 
-> **Est-ce que je dev comme Apple ?**
-> Auto-évaluation SwiftUI pour devs iOS de tout niveau — QCM + scan de ton
-> vrai projet, rapport HTML jamais culpabilisant. Propulsé par Claude Code.
+# 🐙 do-i-code-like-apple
+
+> **Do I code like Apple?**
+> Self-assessment for iOS/SwiftUI developers of any level — quiz + scan of
+> your real project, an HTML report that never shames. Powered by Claude Code.
+> Works in your language (en, fr, es, de… any language, really).
 
 ```
         ,---.
-       ( o o )        « Est-ce que je dev comme Apple ? »
+       ( o o )        "Do I code like Apple?"
         \ = /
-      .-'---'-.       npx dev-comme-apple
+      .-'---'-.       npx do-i-code-like-apple
      / | | | | \
     (  | | | |  )
      '-'-'-'-'-'
 ```
 
-![Démo](docs/demo.gif) <!-- GIF à venir -->
+![Demo](docs/demo.gif) <!-- GIF coming soon -->
 
-## Lancer
+## Run it
 
 ```bash
-npx dev-comme-apple
+npx do-i-code-like-apple            # language auto-detected from your env
+npx do-i-code-like-apple --lang es  # or pick one (any language code works)
+npx dev-comme-apple                 # friendly alias for the French audience
 ```
 
-Prérequis : [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
-installé (`claude` dans le PATH). C'est tout — zéro dépendance npm.
+Requirement: [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
+installed (`claude` on the PATH). That's it — zero npm dependencies.
 
-## Ce qui se passe
+## What happens
 
-1. **Une question de niveau** — junior / confirmé / senior. Ça n'influence
-   jamais le verdict, seulement la pédagogie du rapport.
-2. **Un QCM ~15 questions** avec snippets de code : « laquelle de ces deux
-   versions tu écrirais ? ». Frontières d'invalidation, identité ForEach,
-   dérivés dans le body, @Observable, bindings, localisation, APIs
-   dépréciées, tests, guard-first, modifiers conditionnels.
-3. **Un scan de ton vrai projet** (optionnel) : tu donnes le chemin d'un
-   projet Xcode/SwiftUI, l'outil confronte **ce que tu PENSES faire** (tes
-   réponses) et **ce que ton code MONTRE** (le scan), axe par axe. Tu peux
-   contextualiser en langage libre : « Features/Checkout c'est mon niveau
-   actuel, Legacy/ date de mes débuts » — le score ne se calcule QUE sur ton
-   code d'aujourd'hui, et le legacy sert à mesurer **ta progression**.
-4. **Un rapport HTML** auto-contenu s'ouvre : score global, notes en poulpes
-   🐙 par axe, le face-à-face déclaré/observé (l'or de l'outil), ta
-   progression, et le top 3 des « fixes 5 minutes » avec avant/après et liens
-   vers la doc Apple.
+1. **A level question** — junior / seasoned / senior. It never affects the
+   verdict, only how the report teaches.
+2. **A ~15-question quiz** with code snippets: "which of these two versions
+   would you write?". Invalidation boundaries, ForEach identity, derived data
+   in the body, @Observable, bindings, localization, deprecated APIs,
+   testing, guard-first, conditional modifiers.
+3. **A scan of your real project** (optional): you give the path to an
+   Xcode/SwiftUI project, and the tool confronts **what you THINK you do**
+   (your answers) with **what your code SHOWS** (the scan), axis by axis.
+   You can add free-form context: "Features/Checkout is my current level,
+   Legacy/ dates from my beginnings" — the score is computed ONLY on today's
+   code, and the legacy is used to measure **your progress**.
+4. **A self-contained HTML report** opens: overall score, per-axis octopus
+   grades 🐙, the declared-vs-observed face-off (the tool's gold), your
+   progress, and the top 3 "5-minute fixes" with before/after and Apple doc
+   links.
 
-## Philosophie : jamais culpabilisant
+## Multilingual by design
 
-- On ne juge pas, on montre. Chaque finding = **concept + référence doc
-  Apple + fix en 5 minutes** (snippet avant/après).
-- On n'évalue **jamais** quelqu'un sur son code d'il y a 3 ans. Le legacy
-  déclaré est exclu du score — et retourné en atout : les axes où ton code
-  récent fait mieux que l'ancien deviennent des **acquis prouvés** ✓.
-- Les divergences marchent dans les deux sens : parfois ton code est
-  meilleur que tes réponses. On te le dit aussi.
-- Rien n'est envoyé nulle part : tout tourne en local dans ta session
-  Claude Code.
+The content (quiz, rules, report) is written once, in English — and the
+Claude session **translates it live** into the session language. No
+per-language copies to maintain, and it works for any language, not just the
+four shipped in the CLI (`en`, `fr`, `es`, `de` for the CLI's own messages).
+Language resolution: `--lang` flag > `LANG`/`LC_ALL` environment > Claude
+asks at the start.
 
-## Contribuer une règle
+## Philosophy: never shaming
 
-Les 10 axes d'évaluation vivent dans [`rules/`](rules/) — un fichier
-Markdown par axe, avec un frontmatter structuré :
+- We don't judge, we show. Every finding = **concept + Apple doc reference +
+  5-minute fix** (before/after snippet).
+- Nobody gets graded on code they wrote 3 years ago. Declared legacy is
+  excluded from the score — and turned into an asset: axes where your recent
+  code beats the old one become **proven wins** ✓.
+- Divergences work in both directions: sometimes your code is better than
+  your answers. We tell you that too.
+- Nothing is sent anywhere: everything runs locally in your Claude Code
+  session.
+
+## Contributing a rule
+
+The 10 evaluation axes live in [`rules/`](rules/) — one Markdown file per
+axis, with a structured frontmatter:
 
 ```yaml
 ---
-axe: 2
-id: identite-foreach
-titre: "Identité ForEach — ids stables"
-severite: haute            # haute | moyenne | basse
-patterns:                  # regex grep détectables dans le code
+axis: 2
+id: foreach-identity
+title: "ForEach identity — stable ids"
+severity: high             # high | medium | low
+patterns:                  # grep-able regexes
   - "id:\\s*\\\\\\.self"
-reference: "Résumé de ce que dit la doc Apple"
-lien: "https://developer.apple.com/documentation/swiftui/foreach"
+reference: "Summary of what the Apple doc says"
+link: "https://developer.apple.com/documentation/swiftui/foreach"
 ---
 ```
 
-suivi de quatre sections : **Le concept**, **Ce que dit Apple**, **Détection**
-(patterns + cas ambigus laissés au jugement de Claude), **Fix en 5 min**
-(avant/après). La session lit tous les fichiers de `rules/` : ajouter une
-règle = ouvrir une PR avec un fichier. Voir [CONTRIBUTING.md](CONTRIBUTING.md).
+followed by four sections: **The concept**, **What Apple says**, **Detection**
+(patterns + ambiguous cases left to Claude's judgment), **5-minute fix**
+(before/after). The session reads every file in `rules/`: adding a rule =
+opening a PR with one file. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Structure
 
 ```
-bin/cli.mjs        # CLI zéro dépendance : vérifie claude, prépare, lance
-skill/SKILL.md     # le protocole que suit la session Claude
-skill/qcm.md       # les 15 questions du QCM
-rules/*.md         # les 10 axes — contribuables par PR
-template/          # rapport néo-brutaliste (CSS + squelette)
-examples/          # fixture d'anti-patterns + rapport d'exemple
+bin/cli.mjs        # zero-dependency CLI: checks claude, prepares, launches
+skill/SKILL.md     # the protocol the Claude session follows
+skill/quiz.md      # the 15 quiz questions (canonical English)
+rules/*.md         # the 10 axes — contributable via PR
+template/          # neo-brutalist report (CSS + skeleton)
+examples/          # anti-pattern fixture + sample report
 ```
 
-## Essayer sans Claude
+## Try it without Claude
 
 ```bash
-node bin/cli.mjs --help      # l'aide (et le poulpe)
-node bin/cli.mjs --dry-run   # montre ce qui serait lancé, sans lancer claude
-open examples/rapport-exemple.html   # à quoi ressemble un rapport
+node bin/cli.mjs --help        # the help (and the octopus)
+node bin/cli.mjs --dry-run     # shows what would run, without launching claude
+open examples/report-example.html   # what a report looks like
 ```
 
 ---
 
-🐙 Par le développeur de [LibTracker](https://libtracker.io) — le poulpi,
-c'est de famille. Réalisé en BuildInPublic sur
-[Horka_TV](https://www.twitch.tv/horka_tv) · propulsé par Claude Code ·
-Licence [MIT](LICENSE).
+🐙 By the developer of [LibTracker](https://libtracker.io) — the octopus runs
+in the family. Built in public on
+[Horka_TV](https://www.twitch.tv/horka_tv) · powered by Claude Code ·
+[MIT](LICENSE) license.

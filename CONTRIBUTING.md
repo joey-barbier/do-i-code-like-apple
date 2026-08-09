@@ -1,40 +1,45 @@
-# Contribuer
+# Contributing
 
-Merci ! La contribution la plus utile : **une règle d'évaluation**.
+Thanks! The most useful contribution: **an evaluation rule**.
 
-## Ajouter ou améliorer une règle
+Canonical content language is **English** (rules, quiz, protocol) — the
+Claude session translates it live into the user's language, so one file
+serves every language. CLI messages have a small per-language dictionary in
+`bin/cli.mjs` (`en`, `fr`, `es`, `de`) — adding a CLI language = adding one
+entry there.
 
-1. Un fichier = un axe, dans `rules/`, nommé `NN-slug.md`.
-2. Frontmatter obligatoire : `axe`, `id`, `titre`, `severite`
-   (haute/moyenne/basse), `patterns` (regex grep), `reference`, `lien`
-   (doc Apple officielle uniquement). `scope` optionnel (ex. « fichiers de
-   tests uniquement »).
-3. Corps en quatre sections : **Le concept** · **Ce que dit Apple** ·
-   **Détection** (avec les cas ambigus laissés au jugement de la session) ·
-   **Fix en 5 min** (avant/après).
-4. Le ton : jamais culpabilisant. On explique le mécanisme, on ne juge pas
-   la personne. Chaque finding doit repartir avec un fix immédiat.
-5. Si le pattern est détectable, ajoute un exemple déclencheur dans
-   `examples/DemoAntiPatterns.swift` (annoté avec le numéro d'axe).
+## Adding or improving a rule
 
-## Vérifier avant la PR
+1. One file = one axis, in `rules/`, named `NN-slug.md` (English slug).
+2. Mandatory frontmatter: `axis`, `id`, `title`, `severity`
+   (high/medium/low), `patterns` (grep regexes), `reference`, `link`
+   (official Apple docs only). Optional `scope` (e.g. "test files only").
+3. Body in four sections: **The concept** · **What Apple says** ·
+   **Detection** (with the ambiguous cases left to the session's judgment) ·
+   **5-minute fix** (before/after).
+4. The tone: never shaming. Explain the mechanism, don't judge the person.
+   Every finding must leave with an immediate fix.
+5. If the pattern is grep-able, add a triggering example to
+   `examples/DemoAntiPatterns.swift` (annotated with the axis number).
+
+## Check before the PR
 
 ```bash
-node bin/cli.mjs --help       # le CLI répond
-node bin/cli.mjs --dry-run    # la session se prépare (ta règle est copiée)
+node bin/cli.mjs --help       # the CLI responds
+node bin/cli.mjs --dry-run    # the session prepares (your rule gets copied)
 ```
 
-Et idéalement : lance `npx dev-comme-apple` sur `examples/` et vérifie que ta
-règle déclenche bien.
+Ideally: run `npx do-i-code-like-apple` against `examples/` and confirm your
+rule triggers.
 
 ## Commits
 
-Format : `add/update/fix(scope) - description` — ex.
-`add(rules) - axe 11 : tâches détachées dans les vues`. Pas d'emoji dans les
-messages de commit.
+Format: `add/update/fix(scope) - description` — e.g.
+`add(rules) - axis 11: detached tasks in views`. No emojis in commit
+messages.
 
-## QCM
+## Quiz
 
-Les questions vivent dans `skill/qcm.md`. Une nouvelle règle peut proposer
-1-2 questions associées (snippets A/B, réponse mélangée entre A et B,
-explication gardée pour le rapport).
+Questions live in `skill/quiz.md`. A new rule may come with 1-2 matching
+questions (A/B snippets, correct answer shuffled between A and B,
+explanation kept for the report).
