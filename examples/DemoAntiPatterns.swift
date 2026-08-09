@@ -53,6 +53,15 @@ struct DemoDashboard: View {
         }
     }
 
+    // Axis 1: section as func helper — inlined into the caller's body exactly
+    // like a computed var, the parameters change nothing about invalidation
+    private func projectSection(_ title: String) -> some View {
+        VStack {
+            Text(title)
+            ProgressView()
+        }
+    }
+
     // Axis 1: section as computed var — inlined into the body, no boundary
     private var header: some View {
         VStack {
@@ -99,5 +108,13 @@ enum DemoRouter {
                 }
             }
         }
+    }
+
+    // NEGATIVE case (axis 9): guard-first done right — the scan must NOT
+    // flag this function (a previous rule version grepped `else { return }`
+    // and flagged its own recommendation; this guards the fix).
+    static func closeProject(named name: String, in store: DemoStore) {
+        guard let index = path.firstIndex(of: name) else { return }
+        path.remove(at: index)
     }
 }
