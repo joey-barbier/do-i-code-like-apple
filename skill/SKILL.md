@@ -76,8 +76,9 @@ converted to octopuses (see Scoring).
 If the user asks to skip the quiz (they only want their code assessed), honor
 it: run steps 2-4 without declared scores. The report then has **no
 "declared" column**, **no face-off section**, the chips become pure
-code-quality verdicts (`c-ok` clean · `c-warn` improvable · `c-ko` serious
-finding · `c-mut` not scanned), and the overall score = mean of observed
+code-quality verdicts (`c-ok` CLEAN · `c-warn` IMPROVABLE · `c-ko` SERIOUS
+FINDING · `c-mut` NOT SCANNED — localized; the skeleton documents this
+mapping with a French example), and the overall score = mean of observed
 axes only. Say in the report subtitle that it is a scan-only assessment.
 
 ## Step 2 — Scan (optional)
@@ -105,19 +106,37 @@ Interpret that text freely and partition the project into three scopes:
 **Scores and per-axis verdicts are computed on the FOCUS scope ONLY.**
 Nobody gets graded on code they wrote 3 years ago.
 
-**Large projects** (> ~300 Swift files in focus): sample by module — pick
+**Large projects** (> ~300 Swift files **in the FOCUS scope alone** —
+legacy and exclusions don't count toward the threshold): sample by module — pick
 the modules the user names as current, plus the largest view-heavy modules
 (files containing `: View` / `body`), and cap the deep-judgment phase to the
 sampled set. DECLARE the sampling in the report's scope block.
 
 ### 2b. Staged scan — three phases (this is what keeps 16 axes tractable)
 
-**Phase 1 — sweep (GREP, cheap, exhaustive).** For every rule file in
-`rules/*.md` (read them all first), run every frontmatter `patterns` regex
-over the FOCUS `.swift` files, in batches per axis
-(`grep -rnE '<pattern>' --include='*.swift' <focus paths>`). Respect each
-rule's `scope:` restriction (e.g. axis 8 only on test files). Collect raw
-hits per axis: file, line, matched text. Do NOT judge yet.
+**Phase 1 — sweep (GREP, cheap, exhaustive).** Run the bundled runner:
+
+```bash
+node <session>/scripts/sweep.mjs <focus paths>
+```
+
+It reads every rule frontmatter and greps all patterns per axis with
+`grep -E -f <pattern-file>`. **NEVER paste patterns inline into a shell
+command**: patterns containing `!` (axis 8: `try!`, `\)!`) get SILENTLY
+eaten by zsh/bash history expansion — a validation run missed 15 real hits
+that way. If you must grep manually, use the pre-generated files:
+`grep -rnE -f <session>/scripts/patterns/<axis>.txt --include='*.swift' <paths>`.
+The runner already respects `scope:` restrictions (axis 8 only on test
+files). Collect raw hits per axis: file, line, matched text. Do NOT judge
+yet.
+
+Two mechanical notes for this phase:
+- **Axes 1 and 12 share one sweep**: both scan body/section shapes
+  (`var … : some View`, `func … -> some View`, `var body: some View {`).
+  Sweep once, route each hit to both axes' judgment — never re-read the
+  same lines twice.
+- **Axis 1, pattern 1** matches `var body` itself by design (~3 of 4 raw
+  hits in practice): pipe through `grep -v 'var body'` before counting.
 
 **Phase 2 — judgment (only on hits + the guards).** For each axis WITH hits:
 read the rule's **Sub-rules** and **Do NOT flag** sections, then inspect
